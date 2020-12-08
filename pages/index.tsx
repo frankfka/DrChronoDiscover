@@ -1,6 +1,11 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import {Button} from 'antd';
+import { signIn } from 'next-auth/client'
+
+async function testSignIn() {
+  return await signIn()
+}
 
 export default function Home() {
   return (
@@ -16,6 +21,9 @@ export default function Home() {
         </h1>
         <Button type={'primary'} href={'https://www.google.com/'}>
           Test
+        </Button>
+        <Button type={'primary'} onClick={testSignIn}>
+          Sign In
         </Button>
       </main>
 
