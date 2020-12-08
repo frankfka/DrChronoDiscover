@@ -1,15 +1,23 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import {Button} from 'antd';
-import { signIn } from 'next-auth/client'
+import {Button, PageHeader} from 'antd';
+import {signIn, useSession} from 'next-auth/client';
 
-async function testSignIn() {
+async function signInPressed() {
   return await signIn()
 }
 
 export default function Home() {
+  // Authentication
+  const [session, loading] = useSession();
+
   return (
     <div className={styles.container}>
+      <PageHeader
+        className={styles.navHeader}
+        title="Dr.Chrono Discover"
+        subTitle={session ? session.user.name : "Not Signed In"}
+      />
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico"/>
@@ -22,7 +30,7 @@ export default function Home() {
         <Button type={'primary'} href={'https://www.google.com/'}>
           Test
         </Button>
-        <Button type={'primary'} onClick={testSignIn}>
+        <Button type={'primary'} onClick={signInPressed}>
           Sign In
         </Button>
       </main>

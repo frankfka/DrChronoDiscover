@@ -7,6 +7,11 @@
   align-items: center;
 }
 
+.nav-header {
+  width: 100% !important;
+  background-color: lightpink;
+}
+
 .main {
   padding: 5rem 0;
   flex: 1;
