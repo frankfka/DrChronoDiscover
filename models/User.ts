@@ -1,16 +1,21 @@
 import Adapters from 'next-auth/adapters';
-import {EntitySchema} from 'typeorm';
+import { EntitySchema } from 'typeorm';
 
 export default class User extends Adapters.TypeORM.Models.User.model {
   phoneNumber?: string;
 
-  constructor(name?: string, email?: string, image?: string, emailVerified?: Date) {
-    super(name, email, image, emailVerified)
+  constructor(
+    name?: string,
+    email?: string,
+    image?: string,
+    emailVerified?: Date
+  ) {
+    super(name, email, image, emailVerified);
   }
 }
 
 export const UserSchema: EntitySchema<User>['options'] = {
-  name: "User",
+  name: 'User',
   target: User,
   columns: {
     ...Adapters.TypeORM.Models.User.schema.columns,
@@ -18,7 +23,7 @@ export const UserSchema: EntitySchema<User>['options'] = {
     phoneNumber: {
       type: 'string',
       nullable: true,
-      default: 'hello'
+      default: 'hello',
     },
   },
-}
+};

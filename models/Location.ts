@@ -1,4 +1,4 @@
 export default interface Geolocation {
-  lat: number
-  lng: number
+  lat: number;
+  lng: number;
 }
