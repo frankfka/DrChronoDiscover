@@ -1,6 +1,6 @@
 import styles from '../styles/Search.module.scss';
 import {Button, Col, Layout, Row, Select} from 'antd';
-import {ResultMap} from '../components/ResultMap';
+import ResultMap from '../components/ResultMap';
 import {useEffect, useState} from 'react';
 import Geolocation from '../models/Location';
 const {Header, Footer, Content} = Layout;
@@ -23,7 +23,7 @@ const mockLocations: Array<Geolocation> = [
 
 
 export default function Search() {
-  const [selectionIndex, setSelectionIndex] = useState<number>(0);
+  const [selectionIndex, setSelectionIndex] = useState<number | undefined>();
 
   const [isLoading, setLoading] = useState(true)
   const [currentLocation, setCurrentLocation] = useState<Geolocation | null>(null);
@@ -68,13 +68,18 @@ export default function Search() {
             />
           </Col>
           <Col span={6}>
-            <Select onChange={(val: number) => {
+            <Select onChange={(val: number | string) => {
+              if (typeof val === 'number') {
                 setSelectionIndex(val)
+              } else {
+                setSelectionIndex(undefined)
+              }
             }}>
+              <Option value='None'>None</Option>
               {
                 mockLocations.map((_, index) => {
                   return (
-                    <Option value={index}>{index}</Option>
+                    <Option value={index} key={index}>{index}</Option>
                   )
                 })
               }

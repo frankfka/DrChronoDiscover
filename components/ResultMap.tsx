@@ -2,10 +2,10 @@ import GoogleMapReact from 'google-map-react';
 import Geolocation from '../models/Location';
 import {FC} from 'react';
 
-interface MapProps {
+interface ResultMapProps {
   currentLocation: Geolocation
   resultLocations: Array<Geolocation>
-  selectedIndex: number
+  selectedIndex: number | undefined
 }
 
 interface MarkerProps extends Geolocation {
@@ -34,25 +34,32 @@ const TextMarker = ({ text, isSelected }: TextMarkerProps) => {
 
 
 // https://github.com/google-map-react/google-map-react/blob/master/API.md
-export const ResultMap: FC<MapProps> = ({currentLocation, resultLocations, selectedIndex}) => {
+export default function ResultMap({currentLocation, resultLocations, selectedIndex}: ResultMapProps) {
   const apiKey: string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!;
+  const defaultCenter: Geolocation = currentLocation;
+  const defaultZoom: number = 11;
+  let currentCenter: Geolocation | undefined;
+  if (selectedIndex !== undefined) {
+    currentCenter = resultLocations[selectedIndex]
+  }
 
   return (
     <GoogleMapReact
       bootstrapURLKeys={{key: apiKey}}
-      center={currentLocation}
-      defaultCenter={{
-        lat: 49.2827,
-        lng: 123.1207,
+      center={currentCenter}
+      defaultCenter={defaultCenter}
+      defaultZoom={defaultZoom}
+      onChildClick={(key, childProps) => {
+        console.log('Child clicked', key, childProps)
       }}
-      defaultZoom={12}
     >
       {
         resultLocations.map((loc, index) => {
           return (
             <TextMarker
               lat={loc.lat} lng={loc.lng}
-              text={`${index}`} isSelected={index === selectedIndex}
+              text={`${index}`}
+              isSelected={index === selectedIndex}
               key={index}
             />
           );

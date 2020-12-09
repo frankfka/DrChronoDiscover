@@ -2,18 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ca4a0ae-d647-43dc-9abd-679bf1127014" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/components/ResultMap.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Location.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/search.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/Home.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/Search.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/_app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/Home.module.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/globals.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ResultMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ResultMap.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/search.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/search.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +79,8 @@
       <option name="presentableId" value="Default" />
       <updated>1607357149253</updated>
       <workItem from="1607357152696" duration="506000" />
-      <workItem from="1607357690596" duration="22429000" />
+      <workItem from="1607357690596" duration="22463000" />
+      <workItem from="1607529005232" duration="1570000" />
     </task>
     <servers />
   </component>
