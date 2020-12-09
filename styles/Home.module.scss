@@ -1,0 +1,15 @@
+.homePage {
+  min-height: 100vh;
+  background-color: aqua;
+}
+.searchSplashHeader {
+  display: flex;
+  text-align: center;
+  // Horizontal center
+  justify-content: center;
+  // Vertical center
+  align-items: center;
+  width: 100%;
+  min-height: 60vh;
+  background-color: lightpink;
+}
