@@ -2,10 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ca4a0ae-d647-43dc-9abd-679bf1127014" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/models/provider.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/providerLocation.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/appServices.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/database/models/mongooseProvider.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/database/models/mongooseProviderLocation.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/database/mongooseDatabaseClient.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/database/MongoDatabaseClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/service/database/MongoDatabaseClient.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ResultMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ResultMap.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Geolocation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/models/geolocation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/_app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/auth/[...nextauth].ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/hello.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/hello.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/search.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/search.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/database/MongoDatabaseClient.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +44,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JavaScript" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/styles" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/services/database/models" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -51,6 +61,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/services/database/models" />
       <recent name="$PROJECT_DIR$/styles" />
       <recent name="$PROJECT_DIR$/pages" />
     </key>
@@ -84,7 +95,7 @@
       <workItem from="1607357690596" duration="22463000" />
       <workItem from="1607529005232" duration="1570000" />
       <workItem from="1607579552589" duration="49000" />
-      <workItem from="1607655989639" duration="1305000" />
+      <workItem from="1607655989639" duration="8966000" />
     </task>
     <servers />
   </component>

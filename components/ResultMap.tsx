@@ -1,5 +1,5 @@
 import GoogleMapReact from 'google-map-react';
-import Geolocation from '../models/Geolocation';
+import Geolocation from '../models/geolocation';
 
 interface ResultMapProps {
   currentLocation: Geolocation;
