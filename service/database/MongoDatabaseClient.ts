@@ -1,26 +1,25 @@
-import { MongoClient } from 'typeorm';
+import * as mongoose from 'mongoose';
 
 export default class MongoDatabaseClient {
-  // TODO: Env vars?
   private static DB_NAME = 'dev';
 
-  private connectionUri: string;
-  private client: MongoClient;
+  private readonly connectionUri: string;
 
   constructor(connectionUri: string) {
     this.connectionUri = connectionUri;
-    this.client = new MongoClient(connectionUri);
   }
 
-  async connect() {
-    await this.client.connect();
-    // Establish and verify connection
-    await this.client.db(MongoDatabaseClient.DB_NAME).command({ ping: 1 });
-    console.log('Connected successfully to MongoDB');
+  async connect(): Promise<void> {
+    await mongoose.connect(this.connectionUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
+    });
   }
 
-  async disconnect() {
-    await this.client.close();
+  async disconnect(): Promise<void> {
+    await mongoose.disconnect();
   }
 
   async geoSearchForProviderLocations(lat: number, long: number) {

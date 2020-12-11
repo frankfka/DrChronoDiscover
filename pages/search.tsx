@@ -2,7 +2,7 @@ import styles from '../styles/Search.module.scss';
 import { Col, Layout, Row, Select } from 'antd';
 import ResultMap from '../components/ResultMap';
 import { useEffect, useState } from 'react';
-import Geolocation from '../models/Location';
+import Geolocation from '../models/Geolocation';
 const { Header, Footer, Content } = Layout;
 const { Option } = Select;
 
