@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ca4a0ae-d647-43dc-9abd-679bf1127014" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/provider.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/providerLocation.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/appServices.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/database/models/mongooseProvider.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/database/models/mongooseProviderLocation.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/database/mongooseDatabaseClient.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/api/nearbyApiModels.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ResultMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ResultMap.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Geolocation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/models/geolocation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/_app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/auth/[...nextauth].ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/hello.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/hello.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/search.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/search.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/database/MongoDatabaseClient.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/hello.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/nearby.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +84,8 @@
       <workItem from="1607357690596" duration="22463000" />
       <workItem from="1607529005232" duration="1570000" />
       <workItem from="1607579552589" duration="49000" />
-      <workItem from="1607655989639" duration="8966000" />
+      <workItem from="1607655989639" duration="9878000" />
+      <workItem from="1607823432964" duration="1582000" />
     </task>
     <servers />
   </component>
