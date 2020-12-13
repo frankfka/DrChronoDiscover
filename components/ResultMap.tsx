@@ -1,46 +1,52 @@
 import GoogleMapReact from 'google-map-react';
 import Geolocation from '../models/geolocation';
+import ProviderLocation from '../models/providerLocation';
 
 interface ResultMapProps {
-  currentLocation: Geolocation;
-  resultLocations: Array<Geolocation>;
+  searchLocation: Geolocation;
+  resultLocations: Array<ProviderLocation>;
   selectedIndex: number | undefined;
+  onResultLocationClicked?: (location: ProviderLocation) => void;
 }
 
 type MarkerProps = Geolocation;
 
 interface TextMarkerProps extends MarkerProps {
-  text: string;
+  providerLocation: ProviderLocation;
   isSelected: boolean;
 }
 
-const TextMarker = ({ text, isSelected }: TextMarkerProps) => {
+const TextMarker = ({
+  providerLocation,
+  isSelected,
+}: TextMarkerProps): JSX.Element => {
   return (
     <div
       style={{
-        width: 25,
+        width: 100,
         height: 25,
         backgroundColor: isSelected ? 'purple' : 'black',
         color: 'white',
       }}
     >
-      <p>{text}</p>
+      <p>{providerLocation.name}</p>
     </div>
   );
 };
 
 // https://github.com/google-map-react/google-map-react/blob/master/API.md
 export default function ResultMap({
-  currentLocation,
+  searchLocation,
   resultLocations,
   selectedIndex,
-}: ResultMapProps) {
+  onResultLocationClicked,
+}: ResultMapProps): JSX.Element {
   const apiKey: string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!;
-  const defaultCenter: Geolocation = currentLocation;
+  const defaultCenter: Geolocation = searchLocation;
   const defaultZoom = 11;
   let currentCenter: Geolocation | undefined;
   if (selectedIndex !== undefined) {
-    currentCenter = resultLocations[selectedIndex];
+    currentCenter = resultLocations[selectedIndex].location;
   }
 
   return (
@@ -49,16 +55,17 @@ export default function ResultMap({
       center={currentCenter}
       defaultCenter={defaultCenter}
       defaultZoom={defaultZoom}
-      onChildClick={(key, childProps) => {
-        console.log('Child clicked', key, childProps);
+      onChildClick={(key, childProps: TextMarkerProps) => {
+        // TODO: Temporarily using key as index here
+        onResultLocationClicked?.(childProps.providerLocation);
       }}
     >
       {resultLocations.map((loc, index) => {
         return (
           <TextMarker
-            lat={loc.lat}
-            lng={loc.lng}
-            text={`${index}`}
+            lat={loc.location.lat}
+            lng={loc.location.lng}
+            providerLocation={loc}
             isSelected={index === selectedIndex}
             key={index}
           />

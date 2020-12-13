@@ -9,12 +9,14 @@
   },
   "dependencies": {
     "antd": "^4.9.2",
+    "axios": "^0.21.0",
     "google-map-react": "^2.1.9",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.7",
     "next": "10.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-query": "^2.26.4",
     "sass": "^1.30.0"
   },
   "devDependencies": {
