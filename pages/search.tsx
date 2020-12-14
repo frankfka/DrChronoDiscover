@@ -1,6 +1,6 @@
 import styles from '../styles/Search.module.scss';
-import { Col, Layout, Row, Select } from 'antd';
-import ResultMap from '../components/ResultMap';
+import { Col, Layout, Row } from 'antd';
+import ResultMap from '../components/ResultMap/ResultMap';
 import { useState } from 'react';
 import Geolocation, { createGeolocation } from '../models/geolocation';
 import { useQuery } from 'react-query';
@@ -10,8 +10,8 @@ import {
 } from '../models/api/nearbyApiModels';
 import axios from 'axios';
 import ProviderLocation from '../models/providerLocation';
+import ResultList from '../components/ResultList/ResultList';
 const { Header, Footer, Content } = Layout;
-const { Option } = Select;
 
 async function getCurrentLocation(): Promise<Geolocation> {
   const currentPosition = await new Promise<GeolocationPosition>(
@@ -81,6 +81,10 @@ export default function Search(): JSX.Element {
       nearbyQueryData?.locations.findIndex((elem) => elem == location)
     );
   };
+  const onResultLocationBookClicked = (location: ProviderLocation): void => {
+    // TODO: show modal
+    console.log('book now');
+  };
 
   // Render
   if (isLoading) {
@@ -104,7 +108,7 @@ export default function Search(): JSX.Element {
       <Header>Header</Header>
       <Content>
         <Row className={styles.searchPageContent}>
-          <Col span={18}>
+          <Col span={18} className={styles.searchPageContent}>
             <ResultMap
               searchLocation={currentLocation}
               resultLocations={nearbyQueryData.locations}
@@ -112,25 +116,15 @@ export default function Search(): JSX.Element {
               onResultLocationClicked={onResultLocationClicked}
             />
           </Col>
-          <Col span={6}>
-            <Select
-              onChange={(val: number | string) => {
-                if (typeof val === 'number') {
-                  setSelectionIndex(val);
-                } else {
-                  setSelectionIndex(undefined);
-                }
-              }}
-            >
-              <Option value="None">None</Option>
-              {nearbyQueryData.locations.map((_, index) => {
-                return (
-                  <Option value={index} key={index}>
-                    {index}
-                  </Option>
-                );
-              })}
-            </Select>
+          <Col span={6} className={styles.searchPageContent}>
+            <ResultList
+              className={styles.searchResultsList}
+              searchLocation={currentLocation}
+              resultLocations={nearbyQueryData.locations}
+              selectedIndex={selectionIndex}
+              onResultLocationClicked={onResultLocationClicked}
+              onResultLocationBookClicked={onResultLocationBookClicked}
+            />
           </Col>
         </Row>
       </Content>

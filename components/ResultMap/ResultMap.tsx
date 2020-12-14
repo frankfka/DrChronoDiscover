@@ -1,6 +1,6 @@
 import GoogleMapReact from 'google-map-react';
-import Geolocation from '../models/geolocation';
-import ProviderLocation from '../models/providerLocation';
+import Geolocation from '../../models/geolocation';
+import ProviderLocation from '../../models/providerLocation';
 
 interface ResultMapProps {
   searchLocation: Geolocation;
