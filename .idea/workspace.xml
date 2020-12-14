@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ca4a0ae-d647-43dc-9abd-679bf1127014" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/components/ResultList/LoadingResultList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/ResultList/ResultList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/BookingModal/BookingModal.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/BookingModal/BookingModal.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ResultMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ResultMap/ResultMap.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/search.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/search.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/Search.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/Search.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/globals.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +18,7 @@
         <option value="JavaScript File" />
         <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="SCSS File" />
       </list>
     </option>
   </component>
@@ -38,6 +36,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JavaScript" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/services/database/models" />
+    <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -59,6 +58,7 @@
       <recent name="$PROJECT_DIR$/pages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/components/BookingModal" />
       <recent name="$PROJECT_DIR$/components/ResultMap" />
       <recent name="$PROJECT_DIR$/components/ResultList" />
     </key>
@@ -94,7 +94,7 @@
       <workItem from="1607579552589" duration="49000" />
       <workItem from="1607655989639" duration="9878000" />
       <workItem from="1607823432964" duration="7165000" />
-      <workItem from="1607882966636" duration="4248000" />
+      <workItem from="1607882966636" duration="5131000" />
     </task>
     <servers />
   </component>

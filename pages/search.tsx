@@ -11,6 +11,7 @@ import {
 import axios from 'axios';
 import ProviderLocation from '../models/providerLocation';
 import ResultList from '../components/ResultList/ResultList';
+import BookingModal from '../components/BookingModal/BookingModal';
 const { Header, Footer, Content } = Layout;
 
 async function getCurrentLocation(): Promise<Geolocation> {
@@ -44,6 +45,9 @@ async function getNearbyProviderLocations(
 
 export default function Search(): JSX.Element {
   const [selectionIndex, setSelectionIndex] = useState<number | undefined>();
+  const [locationForBookingModal, setLocationForBookingModal] = useState<
+    ProviderLocation | undefined
+  >();
 
   // Get current location
   const {
@@ -82,8 +86,7 @@ export default function Search(): JSX.Element {
     );
   };
   const onResultLocationBookClicked = (location: ProviderLocation): void => {
-    // TODO: show modal
-    console.log('book now');
+    setLocationForBookingModal(location);
   };
 
   // Render
@@ -105,6 +108,18 @@ export default function Search(): JSX.Element {
 
   return (
     <Layout className={styles.searchPage}>
+      {/*Modal*/}
+      {locationForBookingModal && (
+        <BookingModal
+          location={locationForBookingModal}
+          isVisible={!!locationForBookingModal}
+          closeClicked={() => {
+            setLocationForBookingModal(undefined);
+          }}
+        />
+      )}
+
+      {/*Main Content*/}
       <Header>Header</Header>
       <Content>
         <Row className={styles.searchPageContent}>
