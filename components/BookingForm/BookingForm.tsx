@@ -1,7 +1,9 @@
 import * as yup from 'yup';
-import { ErrorMessage, Field, Form, Formik, FormikState } from 'formik';
+import { Button, Form } from 'antd';
+import { Formik, FormikProps } from 'formik';
 import React from 'react';
 import { FormikHelpers } from 'formik/dist/types';
+import TextInput from './TextInput';
 
 interface BookingFormValues {
   firstName: string;
@@ -33,38 +35,57 @@ const createInitialFormValues = (): BookingFormValues => {
 
 function createFormFromFormik({
   isSubmitting,
-}: FormikState<BookingFormValues> &
-  FormikHelpers<BookingFormValues>): JSX.Element {
+  submitForm,
+  handleReset,
+}: FormikProps<BookingFormValues>): JSX.Element {
   return (
-    <Form>
+    <Form onFinish={submitForm} layout={'vertical'} onReset={handleReset}>
       {/*First Name*/}
-      <label htmlFor="firstName">First Name</label>
-      <Field name="firstName" type="text" />
-      <ErrorMessage name="firstName" />
+      <TextInput
+        inputLabel="First Name"
+        name="firstName"
+        type="text"
+        placeholder="Jane"
+      />
 
       {/*Last Name*/}
-      <label htmlFor="lastName">Last Name</label>
-      <Field name="lastName" type="text" />
-      <ErrorMessage name="lastName" />
+      <TextInput
+        inputLabel="Last Name"
+        name="lastName"
+        type="text"
+        placeholder="Doe"
+      />
 
       {/*Email*/}
-      <label htmlFor="email">Email</label>
-      <Field type="email" name="email" />
-      <ErrorMessage name="email" component="div" />
+      <TextInput
+        inputLabel="Email"
+        name="email"
+        type="email"
+        placeholder="JaneDoe@Email.com"
+      />
 
       {/*Phone Number*/}
-      <label htmlFor="phoneNumber">Phone Number</label>
-      <Field type="phoneNumber" name="phoneNumber" />
-      <ErrorMessage name="phoneNumber" component="div" />
+      <TextInput
+        inputLabel="Phone Number"
+        name="phoneNumber"
+        type="tel"
+        placeholder="(778) 555-5555"
+      />
 
       {/*Visit Reason*/}
-      <label htmlFor="visitReason">Visit Reason</label>
-      <Field type="visitReason" name="visitReason" />
-      <ErrorMessage name="visitReason" component="div" />
+      <TextInput
+        inputLabel="Visit Reason"
+        name="visitReason"
+        type="text"
+        placeholder="Tell us why you're booking."
+        multiline
+      />
 
-      <button type="submit" disabled={isSubmitting}>
-        Submit
-      </button>
+      <Form.Item>
+        <Button type="primary" htmlType="submit" disabled={isSubmitting}>
+          Submit
+        </Button>
+      </Form.Item>
     </Form>
   );
 }
@@ -87,10 +108,7 @@ export default function BookingForm(): JSX.Element {
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {(
-        formik: FormikState<BookingFormValues> &
-          FormikHelpers<BookingFormValues>
-      ) => createFormFromFormik(formik)}
+      {(formik: FormikProps<BookingFormValues>) => createFormFromFormik(formik)}
     </Formik>
   );
 }

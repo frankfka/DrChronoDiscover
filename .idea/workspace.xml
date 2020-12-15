@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ca4a0ae-d647-43dc-9abd-679bf1127014" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/components/BookingModal/BookingForm/BookingForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/BookingForm/TextInput.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/BookingModal/BookingForm/BookingForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/BookingForm/BookingForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/BookingModal/BookingModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/BookingModal/BookingModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,9 +16,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="TypeScript JSX File" />
         <option value="SCSS File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -59,6 +58,7 @@
       <recent name="$PROJECT_DIR$/pages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/components" />
       <recent name="$PROJECT_DIR$/components/BookingModal/Form" />
       <recent name="$PROJECT_DIR$/components/BookingModal" />
       <recent name="$PROJECT_DIR$/components/ResultMap" />
@@ -97,7 +97,7 @@
       <workItem from="1607655989639" duration="9878000" />
       <workItem from="1607823432964" duration="7165000" />
       <workItem from="1607882966636" duration="5285000" />
-      <workItem from="1607991169579" duration="2512000" />
+      <workItem from="1607991169579" duration="7200000" />
     </task>
     <servers />
   </component>

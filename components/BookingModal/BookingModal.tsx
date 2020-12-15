@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal } from 'antd';
 import ProviderLocation from '../../models/providerLocation';
 import styles from './BookingModal.module.scss';
-import BookingForm from './BookingForm/BookingForm';
+import BookingForm from '../BookingForm/BookingForm';
 
 interface BookingModalProps {
   location: ProviderLocation;
