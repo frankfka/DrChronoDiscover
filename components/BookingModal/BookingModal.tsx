@@ -1,6 +1,8 @@
+import React from 'react';
 import { Modal } from 'antd';
 import ProviderLocation from '../../models/providerLocation';
 import styles from './BookingModal.module.scss';
+import BookingForm from './BookingForm/BookingForm';
 
 interface BookingModalProps {
   location: ProviderLocation;
@@ -16,7 +18,7 @@ export default function BookingModal({
   return (
     <Modal
       className={styles.bookingModal}
-      title="Basic Modal"
+      title={location.name}
       centered
       visible={isVisible}
       footer={null}
@@ -24,7 +26,7 @@ export default function BookingModal({
       // On close function
       onCancel={closeClicked}
     >
-      <p>{location.name}</p>
+      <BookingForm />
     </Modal>
   );
 }
