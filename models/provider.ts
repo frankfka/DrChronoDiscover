@@ -2,17 +2,23 @@ export interface ChronoApiInfo {
   refreshToken: string;
   accessToken: string;
   accessTokenExpiry: Date;
+  clientId: string;
+  clientSecret: string;
 }
 
 export function createChronoApiInfo(
   refreshToken: string,
   accessToken: string,
-  accessTokenExpiry: Date
+  accessTokenExpiry: Date,
+  clientId: string,
+  clientSecret: string
 ): ChronoApiInfo {
   return {
     refreshToken,
     accessToken,
     accessTokenExpiry,
+    clientId,
+    clientSecret,
   };
 }
 

@@ -1,7 +1,11 @@
 import MongooseDatabaseClient from './database/mongooseDatabaseClient';
+import ChronoClient from './chronoClient/chronoClient';
+import BookingService from './bookingService/bookingService';
 
 interface AppServices {
   mongooseClient: MongooseDatabaseClient;
+  chronoClient: ChronoClient;
+  bookingService: BookingService;
 }
 
 // Create all app services
@@ -12,11 +16,19 @@ async function initServices(): Promise<AppServices> {
     process.env.MONGO_CONNECTION_STRING!
   );
   await mongooseClient.connect();
-  console.log('Mongoose client is initialized');
+
+  // Chrono API
+  const chronoClient = new ChronoClient(process.env.CHRONO_API_ENDPOINT!);
+
+  // Booking
+  const bookingService = new BookingService(mongooseClient, chronoClient);
 
   appServices = {
     mongooseClient,
+    chronoClient,
+    bookingService,
   };
+  console.log('Initialized app services');
   return appServices;
 }
 

@@ -59,9 +59,25 @@ export default class MongooseDatabaseClient {
           createChronoApiInfo(
             mongooseProvider.chronoApiInfo.refreshToken,
             mongooseProvider.chronoApiInfo.accessToken,
-            mongooseProvider.chronoApiInfo.accessTokenExpiry
+            mongooseProvider.chronoApiInfo.accessTokenExpiry,
+            mongooseProvider.chronoApiInfo.clientId,
+            mongooseProvider.chronoApiInfo.clientSecret
           )
         )
       : undefined;
+  }
+
+  async updateProviderAuthentication(
+    providerId: string,
+    newAccessToken: string,
+    newAccessTokenExpiry: Date
+  ): Promise<void> {
+    const mongooseProvider = await MongooseProvider.findById(providerId);
+    if (mongooseProvider == null) {
+      throw Error(`Could not find MongooseProvider with ID ${providerId}`);
+    }
+    mongooseProvider.chronoApiInfo.accessToken = newAccessToken;
+    mongooseProvider.chronoApiInfo.accessTokenExpiry = newAccessTokenExpiry;
+    await mongooseProvider.save();
   }
 }

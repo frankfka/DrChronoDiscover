@@ -5,11 +5,15 @@ export interface MongooseProviderChronoApiInfo extends mongoose.Document {
   refreshToken: string;
   accessToken: string;
   accessTokenExpiry: Date;
+  clientId: string;
+  clientSecret: string;
 }
 export const mongooseChronoApiInfoSchema = new mongoose.Schema({
   refreshToken: String,
   accessToken: String,
   accessTokenExpiry: Date,
+  clientId: String,
+  clientSecret: String,
 });
 
 // Provider

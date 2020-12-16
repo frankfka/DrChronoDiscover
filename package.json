@@ -12,6 +12,7 @@
     "axios": "^0.21.0",
     "formik": "^2.2.6",
     "google-map-react": "^2.1.9",
+    "luxon": "^1.25.0",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.7",
     "next": "10.0.3",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@types/google-map-react": "^2.1.0",
+    "@types/luxon": "^1.25.0",
     "@types/mongoose": "^5.10.2",
     "@types/node": "^14.14.10",
     "@types/react": "^17.0.0",
