@@ -1,6 +1,7 @@
 import MongooseDatabaseClient from '../database/mongooseDatabaseClient';
 import ChronoClient from '../chronoClient/chronoClient';
 import Provider from '../../models/provider';
+import { ChronoClientAuthentication } from '../chronoClient/models/chronoAuthentication';
 
 export default class BookingService {
   private readonly db: MongooseDatabaseClient;
@@ -12,12 +13,13 @@ export default class BookingService {
   }
 
   async testFn(args: Record<string, unknown>): Promise<unknown> {
-    const providerId = args['providerId'] as string;
-    const officeId = args['officeId'] as string;
-    // Get provider from Mongoose
-    const provider: Provider = (await this.db.getProviderById(providerId))!;
-    // Get office info
-    const res = await this.chronoClient.getOfficeInfo(officeId, {
+    return {};
+  }
+
+  private getChronoClientAuthentication(
+    provider: Provider
+  ): ChronoClientAuthentication {
+    return {
       chronoApiInfo: provider.chronoApiInfo,
       onAccessTokenRefresh: async (
         newAccessToken: string,
@@ -29,8 +31,7 @@ export default class BookingService {
           newAccessTokenExpiry
         );
       },
-    });
-    return res;
+    };
   }
 
   private async onAccessTokenRefresh(

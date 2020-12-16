@@ -5,12 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ca4a0ae-d647-43dc-9abd-679bf1127014" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/services/chronoClient/models/chronoAuthentication.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/chronoClient/models/chronoOffice.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/appointment.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/chronoClient/chronoClientDateUtils.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/chronoClient/models/chronoAppointment.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/chronoClient/models/chronoPatient.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/bookingService/bookingService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/bookingService/bookingService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/chronoClient/chronoClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/chronoClient/chronoClient.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/chronoClient/models/chronoAuthentication.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/chronoClient/models/chronoAuthentication.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +106,7 @@
       <workItem from="1607823432964" duration="7165000" />
       <workItem from="1607882966636" duration="5285000" />
       <workItem from="1607991169579" duration="7252000" />
-      <workItem from="1608069789232" duration="14527000" />
+      <workItem from="1608069789232" duration="20078000" />
     </task>
     <servers />
   </component>

@@ -2,10 +2,26 @@ import axios, { AxiosRequestConfig, Method } from 'axios';
 import { DateTime, Duration } from 'luxon';
 import applyCaseMiddleware from 'axios-case-converter';
 import {
-  ChronoAuthenticationParams,
-  ChronoAuthRefreshData,
+  ChronoClientAuthentication,
+  ChronoRefreshAuthenticationData,
 } from './models/chronoAuthentication';
 import ChronoOfficeData from './models/chronoOffice';
+import {
+  ChronoAppointmentData,
+  ChronoCreateAppointmentParams,
+  ChronoGetAppointmentsData,
+  ChronoGetAppointmentsParams,
+  convertChronoAppointmentToAppointment,
+} from './models/chronoAppointment';
+import { Appointment } from '../../models/appointment';
+import {
+  toChronoDateString,
+  toChronoDateTimeString,
+} from './chronoClientDateUtils';
+import {
+  ChronoCreatePatientParams,
+  ChronoPatientGender,
+} from './models/chronoPatient';
 
 export default class ChronoClient {
   private static AUTH_EXPIRY_LIMIT_SECONDS = 10;
@@ -20,29 +36,57 @@ export default class ChronoClient {
 
   async getOfficeInfo(
     officeId: string,
-    authParams: ChronoAuthenticationParams
+    authentication: ChronoClientAuthentication
   ): Promise<ChronoOfficeData> {
     return this.executeGet<ChronoOfficeData>(
       '/api/offices/' + officeId,
-      authParams
+      authentication
     );
   }
 
-  /**
-   * @param date - Will retrieve all appointments for this date, formatted as YYYY-MM-DD
-   * @param officeId - Retrieves for this office only
+  /*
+   * date - Will retrieve all appointments for this date, formatted as YYYY-MM-DD
+   * officeId - Retrieves for this office only
    */
-  async getOfficeAppointments(date: Date, officeId: string) {
-    // TODO (remember to to make page_size = 100 or something)
+  async getOfficeAppointments(
+    date: DateTime,
+    officeId: string,
+    authentication: ChronoClientAuthentication
+  ): Promise<Array<Appointment>> {
+    const params: ChronoGetAppointmentsParams = {
+      date: toChronoDateString(date),
+      office: officeId,
+      pageSize: 100,
+    };
+    const getAppointmentsData = await this.executeGet<ChronoGetAppointmentsData>(
+      '/api/appointments',
+      authentication,
+      params
+    );
+    return getAppointmentsData.results.map(
+      convertChronoAppointmentToAppointment
+    );
   }
 
   async createPatient(
-    gender: 'Male' | 'Female',
+    gender: ChronoPatientGender,
     firstName: string,
     lastName: string,
-    doctorId: string
-  ) {
-    // TODO
+    doctorId: string,
+    authentication: ChronoClientAuthentication
+  ): Promise<void> {
+    const patientData: ChronoCreatePatientParams = {
+      gender: gender,
+      firstName: firstName,
+      lastName: lastName,
+      doctor: doctorId,
+    };
+    const createPatientResult = await this.executePost<unknown>(
+      '/api/patients',
+      authentication,
+      patientData
+    );
+    console.log('Create patient success', createPatientResult);
   }
 
   async createAppointment(
@@ -50,10 +94,27 @@ export default class ChronoClient {
     patientId: string,
     officeId: string,
     examRoomId: string,
-    duration: string, // In Minutes
-    scheduledTime: Date // TODO consider DateTime
-  ) {
-    // TODO
+    durationInMinutes: number,
+    scheduledTime: DateTime,
+    reason: string,
+    authentication: ChronoClientAuthentication
+  ): Promise<Appointment> {
+    const appointmentData: ChronoCreateAppointmentParams = {
+      doctor: doctorId,
+      examRoom: examRoomId,
+      scheduledTime: toChronoDateTimeString(scheduledTime),
+      patient: patientId,
+      office: officeId,
+      duration: durationInMinutes,
+      reason: reason,
+    };
+    const createAppointmentResult = await this.executePost<ChronoAppointmentData>(
+      '/api/appointments',
+      authentication,
+      appointmentData
+    );
+    console.log('Create appointment success', createAppointmentResult);
+    return convertChronoAppointmentToAppointment(createAppointmentResult);
   }
 
   /**
@@ -61,28 +122,28 @@ export default class ChronoClient {
    */
   private async executeGet<T>(
     path: string,
-    authParams: ChronoAuthenticationParams,
-    params?: Record<string, unknown>
+    authentication: ChronoClientAuthentication,
+    params?: unknown
   ): Promise<T> {
-    return this.executeRequest(path, 'GET', authParams, undefined, params);
+    return this.executeRequest(path, 'GET', authentication, undefined, params);
   }
 
   private async executePost<T>(
     path: string,
-    authParams: ChronoAuthenticationParams,
-    data?: Record<string, unknown>
+    authentication: ChronoClientAuthentication,
+    data?: unknown
   ): Promise<T> {
-    return this.executeRequest(path, 'POST', authParams, data);
+    return this.executeRequest(path, 'POST', authentication, data);
   }
 
   private async executeRequest<T>(
     path: string,
     method: Method,
-    authParams: ChronoAuthenticationParams,
-    data?: Record<string, unknown>,
-    params?: Record<string, unknown>
+    authentication: ChronoClientAuthentication,
+    data?: unknown,
+    params?: unknown
   ): Promise<T> {
-    const bearerToken = await this.getOrRefreshAuth(authParams);
+    const bearerToken = await this.getOrRefreshAuth(authentication);
     const requestConfig: AxiosRequestConfig = {
       method: method,
       url: this.endpoint + path,
@@ -94,7 +155,7 @@ export default class ChronoClient {
     };
     console.debug('Executing Request', requestConfig);
     const response = await this.axiosClient.request<T>(requestConfig);
-    if (response.status !== 200 || !response.data) {
+    if (response.status < 200 || response.status > 299 || !response.data) {
       throw Error(
         `Error while executing response: ${JSON.stringify(response)}`
       );
@@ -107,43 +168,45 @@ export default class ChronoClient {
    * TODO: This does not consider timezones - should also consider adding a `force` param to refresh on 401
    */
   private async getOrRefreshAuth(
-    authParams: ChronoAuthenticationParams
+    authentication: ChronoClientAuthentication
   ): Promise<string> {
     // Get expiry
     const expiryDateTime = DateTime.fromJSDate(
-      authParams.chronoApiInfo.accessTokenExpiry
+      authentication.chronoApiInfo.accessTokenExpiry
     );
     // Determine whether we need refresh
     if (
       expiryDateTime.diffNow().as('seconds') <
       ChronoClient.AUTH_EXPIRY_LIMIT_SECONDS
     ) {
-      return this.refreshAuthAndNotify(authParams);
+      return this.refreshAuthAndNotify(authentication);
     } else {
       // Return the current token as it is still valid
-      return authParams.chronoApiInfo.accessToken;
+      return authentication.chronoApiInfo.accessToken;
     }
   }
 
   private async refreshAuthAndNotify(
-    authParams: ChronoAuthenticationParams
+    authentication: ChronoClientAuthentication
   ): Promise<string> {
     // Refresh token data to be passed in as params
     const data = {
-      refresh_token: authParams.chronoApiInfo.refreshToken,
+      refresh_token: authentication.chronoApiInfo.refreshToken,
       grant_type: 'refresh_token',
-      client_id: authParams.chronoApiInfo.clientId,
-      client_secret: authParams.chronoApiInfo.clientSecret,
+      client_id: authentication.chronoApiInfo.clientId,
+      client_secret: authentication.chronoApiInfo.clientSecret,
       scope:
         'patients:read patients:write user:read user:write calendar:read calendar:write clinical:read clinical:write',
     };
     // Execute POST
-    const response = await this.axiosClient.request<ChronoAuthRefreshData>({
-      method: 'POST',
-      url: this.endpoint + '/o/token/',
-      params: data,
-    });
-    if (response.status !== 200 || !response.data) {
+    const response = await this.axiosClient.request<ChronoRefreshAuthenticationData>(
+      {
+        method: 'POST',
+        url: this.endpoint + '/o/token/',
+        params: data,
+      }
+    );
+    if (response.status < 200 || response.status > 299 || !response.data) {
       throw Error(
         `Error while refreshing authentication: ${JSON.stringify(response)}`
       );
@@ -152,7 +215,7 @@ export default class ChronoClient {
     const newExpiryDate = DateTime.local().plus(
       Duration.fromMillis(response.data.expiresIn * 1000)
     );
-    authParams.onAccessTokenRefresh(
+    authentication.onAccessTokenRefresh(
       response.data.accessToken,
       newExpiryDate.toJSDate(),
       response.data.refreshToken
