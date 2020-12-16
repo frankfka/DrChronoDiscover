@@ -28,6 +28,7 @@ interface ChronoExamRoomData {
 interface ChronoOfficeData {
   id: string;
   name: string;
+  doctor: string;
   exam_rooms: Array<ChronoExamRoomData>;
   start_time: string; // '09:00:00'
   end_time: string; // '18:00:00'
@@ -40,6 +41,7 @@ interface ChronoOfficeData {
   phone_number?: string;
 }
 
+// TODO: https://www.npmjs.com/package/axios-case-converter
 export default class ChronoClient {
   private static AUTH_EXPIRY_LIMIT_SECONDS = 10;
   private readonly endpoint: string;
@@ -56,6 +58,34 @@ export default class ChronoClient {
       '/api/offices/' + officeId,
       authParams
     );
+  }
+
+  /**
+   * @param date - Will retrieve all appointments for this date, formatted as YYYY-MM-DD
+   * @param officeId - Retrieves for this office only
+   */
+  async getOfficeAppointments(date: Date, officeId: string) {
+    // TODO (remember to to make page_size = 100 or something)
+  }
+
+  async createPatient(
+    gender: 'Male' | 'Female',
+    firstName: string,
+    lastName: string,
+    doctorId: string
+  ) {
+    // TODO
+  }
+
+  async createAppointment(
+    doctorId: string,
+    patientId: string,
+    officeId: string,
+    examRoomId: string,
+    duration: string, // In Minutes
+    scheduledTime: Date // TODO consider DateTime
+  ) {
+    // TODO
   }
 
   /**
