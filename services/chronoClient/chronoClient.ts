@@ -1,53 +1,21 @@
-import { ChronoApiInfo } from '../../models/provider';
 import axios, { AxiosRequestConfig, Method } from 'axios';
 import { DateTime, Duration } from 'luxon';
+import applyCaseMiddleware from 'axios-case-converter';
+import {
+  ChronoAuthenticationParams,
+  ChronoAuthRefreshData,
+} from './models/chronoAuthentication';
+import ChronoOfficeData from './models/chronoOffice';
 
-interface ChronoAuthRefreshData {
-  access_token: string;
-  refresh_token: string;
-  scope: string;
-  expires_in: number;
-  token_type: 'Bearer';
-}
-
-interface ChronoAuthenticationParams {
-  chronoApiInfo: ChronoApiInfo;
-  onAccessTokenRefresh: (
-    newAccessToken: string,
-    newAccessTokenExpiry: Date,
-    newRefreshToken: string
-  ) => void;
-}
-
-interface ChronoExamRoomData {
-  index: number; // Use this as the ID
-  name: string;
-  online_scheduling: boolean;
-}
-
-interface ChronoOfficeData {
-  id: string;
-  name: string;
-  doctor: string;
-  exam_rooms: Array<ChronoExamRoomData>;
-  start_time: string; // '09:00:00'
-  end_time: string; // '18:00:00'
-  address?: string;
-  city?: string;
-  state?: string;
-  zip_code?: string;
-  country?: string;
-  online_scheduling: boolean;
-  phone_number?: string;
-}
-
-// TODO: https://www.npmjs.com/package/axios-case-converter
 export default class ChronoClient {
   private static AUTH_EXPIRY_LIMIT_SECONDS = 10;
+
   private readonly endpoint: string;
+  private readonly axiosClient;
 
   constructor(endpoint: string) {
     this.endpoint = endpoint;
+    this.axiosClient = applyCaseMiddleware(axios.create()); // Convert camelCase to snake_case & vice versa
   }
 
   async getOfficeInfo(
@@ -125,7 +93,7 @@ export default class ChronoClient {
       },
     };
     console.debug('Executing Request', requestConfig);
-    const response = await axios.request<T>(requestConfig);
+    const response = await this.axiosClient.request<T>(requestConfig);
     if (response.status !== 200 || !response.data) {
       throw Error(
         `Error while executing response: ${JSON.stringify(response)}`
@@ -170,7 +138,7 @@ export default class ChronoClient {
         'patients:read patients:write user:read user:write calendar:read calendar:write clinical:read clinical:write',
     };
     // Execute POST
-    const response = await axios.request<ChronoAuthRefreshData>({
+    const response = await this.axiosClient.request<ChronoAuthRefreshData>({
       method: 'POST',
       url: this.endpoint + '/o/token/',
       params: data,
@@ -182,13 +150,13 @@ export default class ChronoClient {
     }
     // Execute callback to notify of result
     const newExpiryDate = DateTime.local().plus(
-      Duration.fromMillis(response.data.expires_in * 1000)
+      Duration.fromMillis(response.data.expiresIn * 1000)
     );
     authParams.onAccessTokenRefresh(
-      response.data.access_token,
+      response.data.accessToken,
       newExpiryDate.toJSDate(),
-      response.data.refresh_token
+      response.data.refreshToken
     );
-    return response.data.access_token;
+    return response.data.accessToken;
   }
 }
