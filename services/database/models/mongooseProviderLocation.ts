@@ -15,6 +15,7 @@ export const mongooseLocationSchema = new mongoose.Schema({
 export interface MongooseProviderLocationDocument extends mongoose.Document {
   providerId: string;
   name: string;
+  officeId: string;
   location: MongooseLocationDocument;
 }
 export const mongooseProviderLocationSchema = new mongoose.Schema(
@@ -24,6 +25,10 @@ export const mongooseProviderLocationSchema = new mongoose.Schema(
       required: true,
     },
     name: {
+      type: String,
+      required: true,
+    },
+    officeId: {
       type: String,
       required: true,
     },

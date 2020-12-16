@@ -42,6 +42,7 @@ export default class MongooseDatabaseClient {
       return createProviderLocation(
         mongooseModel.providerId,
         mongooseModel.name,
+        mongooseModel.officeId,
         createGeolocation(
           mongooseModel.location.coordinates[1],
           mongooseModel.location.coordinates[0]
