@@ -6,7 +6,11 @@ import {
   AvailableTimeslot,
 } from '../../models/api/availableTimesApiModels';
 import { DateTime } from 'luxon';
-import { AvailableBookingSlot } from '../../models/availableBookingSlot';
+import {
+  dateTimeFromISO,
+  dateTimeToISO,
+  intervalToDurationInMinutes,
+} from '../../utils/dateUtils';
 
 interface AvailableTimesQuery {
   locationIds: Array<string>;
@@ -21,11 +25,7 @@ function parseAvailableTimesRequest(
   return {
     locationIds: queryParams.locationIds.split(','),
     targetDuration: queryParams.targetDuration,
-    requestedDate: DateTime.fromISO(queryParams.isoDate).set({
-      hour: 0,
-      minute: 0,
-      second: 0,
-    }),
+    requestedDate: dateTimeFromISO(queryParams.isoDate, true),
   };
 }
 
@@ -59,13 +59,8 @@ export default async (
         return {
           doctorId: slot.doctorId,
           examRoomId: slot.examRoomId,
-          // TODO: extract helper functions for these
-          isoStartTime: slot.interval.start.toISO({
-            suppressMilliseconds: true,
-            suppressSeconds: true,
-            includeOffset: false,
-          }),
-          duration: slot.interval.toDuration('minutes').as('minutes'),
+          isoStartTime: dateTimeToISO(slot.interval.start),
+          duration: intervalToDurationInMinutes(slot.interval),
         };
       })
     );

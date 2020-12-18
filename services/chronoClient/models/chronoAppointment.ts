@@ -1,6 +1,7 @@
 import { Appointment } from '../../../models/appointment';
-import { Duration, Interval } from 'luxon';
+import { Interval } from 'luxon';
 import { fromChronoDateTimeString } from '../chronoClientDateUtils';
+import { durationFromMinutes } from '../../../utils/dateUtils';
 
 export interface ChronoCreateAppointmentParams {
   doctor: number;
@@ -34,7 +35,7 @@ export function convertChronoAppointmentToAppointment(
     reason: chronoAppointment.reason,
     scheduledTimeInterval: Interval.after(
       startTime,
-      Duration.fromMillis(chronoAppointment.duration * 60 * 1000) // Chrono duration is in minutes
+      durationFromMinutes(chronoAppointment.duration)
     ),
   };
 }
