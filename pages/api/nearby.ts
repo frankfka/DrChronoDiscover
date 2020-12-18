@@ -18,12 +18,12 @@ export default async (
   res: NextApiResponse<NearbyApiResponse>
 ) => {
   if (req.method !== 'GET') {
-    res.status(400);
+    res.status(400).end();
     return;
   }
   const queryParams = parseNearbyRequest(req);
   if (!queryParams) {
-    res.status(400);
+    res.status(400).end();
     return;
   }
   const appServices = await getAppServices();

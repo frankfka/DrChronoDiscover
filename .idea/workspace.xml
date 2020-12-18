@@ -5,14 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ca4a0ae-d647-43dc-9abd-679bf1127014" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/patient.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/api/bookApiModels.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/api/book.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/appointment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/models/appointment.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/availableBookingSlot.ts" beforeDir="false" afterPath="$PROJECT_DIR$/models/booking.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/patient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/models/patient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/availableTimes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/availableTimes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/nearby.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/nearby.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/bookingService/bookingService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/bookingService/bookingService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/chronoClient/chronoClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/chronoClient/chronoClient.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/chronoClient/models/chronoAppointment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/chronoClient/models/chronoAppointment.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/chronoClient/models/chronoPatient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/chronoClient/models/chronoPatient.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +42,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JavaScript" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/models" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/models/api" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -60,11 +60,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/models" />
+      <recent name="$PROJECT_DIR$/models/api" />
       <recent name="$PROJECT_DIR$/pages/api" />
+      <recent name="$PROJECT_DIR$/models" />
       <recent name="$PROJECT_DIR$/services/database/models" />
       <recent name="$PROJECT_DIR$/styles" />
-      <recent name="$PROJECT_DIR$/pages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/components" />
@@ -108,7 +108,7 @@
       <workItem from="1607882966636" duration="5285000" />
       <workItem from="1607991169579" duration="7252000" />
       <workItem from="1608069789232" duration="20110000" />
-      <workItem from="1608219333692" duration="21183000" />
+      <workItem from="1608219333692" duration="22934000" />
     </task>
     <servers />
   </component>

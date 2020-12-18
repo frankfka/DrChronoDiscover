@@ -34,12 +34,12 @@ export default async (
   res: NextApiResponse<AvailableTimesApiResponse>
 ) => {
   if (req.method !== 'GET') {
-    res.status(400);
+    res.status(400).end();
     return;
   }
   const queryParams = parseAvailableTimesRequest(req);
   if (!queryParams) {
-    res.status(400);
+    res.status(400).end();
     return;
   }
   const appServices = await getAppServices();

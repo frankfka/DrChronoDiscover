@@ -37,9 +37,15 @@ export default class BookingService {
       return undefined;
     }
     const [providerLocation, parentProvider] = providerInfo;
+    // Get info on office
+    const providerLocationOfficeInfo: ChronoOfficeData = await this.chronoClient.getOfficeInfo(
+      providerLocation.officeId,
+      this.getChronoClientAuthentication(parentProvider)
+    );
     // Create the patient
     const registeredPatient = await this.chronoClient.createPatient(
       patientData,
+      providerLocationOfficeInfo.doctor,
       this.getChronoClientAuthentication(parentProvider)
     );
     // Make the appointment

@@ -66,12 +66,16 @@ export default class ChronoClient {
 
   async createPatient(
     patientData: UnregisteredPatient,
+    doctorId: number,
     authentication: ChronoClientAuthentication
   ): Promise<Patient> {
     const createPatientResult = await this.executePost<ChronoCreatePatientData>(
       '/api/patients',
       authentication,
-      patientData
+      {
+        ...patientData,
+        doctor: doctorId,
+      }
     );
     console.log('Create patient success', createPatientResult);
     return createPatientResult; // Interfaces for Patient and ChronoCreatePatientData are the same
