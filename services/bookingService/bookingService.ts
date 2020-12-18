@@ -19,10 +19,6 @@ export default class BookingService {
     this.chronoClient = chronoClient;
   }
 
-  async testFn(args: Record<string, unknown>): Promise<unknown> {
-    return {};
-  }
-
   async createAppointment(
     providerLocationId: string,
     patientData: UnregisteredPatient,
