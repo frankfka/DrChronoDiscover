@@ -5,9 +5,9 @@ export interface ChronoExamRoomData {
 }
 
 export default interface ChronoOfficeData {
-  id: string;
+  id: number;
   name: string;
-  doctor: string;
+  doctor: number;
   examRooms: Array<ChronoExamRoomData>;
   startTime: string; // '09:00:00'
   endTime: string; // '18:00:00'

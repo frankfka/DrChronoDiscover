@@ -5,14 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ca4a0ae-d647-43dc-9abd-679bf1127014" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/appointment.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/chronoClient/chronoClientDateUtils.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/chronoClient/models/chronoAppointment.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/chronoClient/models/chronoPatient.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/availableBookingSlot.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/appointment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/models/appointment.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/provider.ts" beforeDir="false" afterPath="$PROJECT_DIR$/models/provider.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/providerLocation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/models/providerLocation.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/bookingService/bookingService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/bookingService/bookingService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/chronoClient/chronoClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/chronoClient/chronoClient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/chronoClient/models/chronoAppointment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/chronoClient/models/chronoAppointment.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/chronoClient/models/chronoAuthentication.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/chronoClient/models/chronoAuthentication.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/chronoClient/models/chronoOffice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/chronoClient/models/chronoOffice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/chronoClient/models/chronoPatient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/chronoClient/models/chronoPatient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/database/models/mongooseProviderLocation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/database/models/mongooseProviderLocation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/database/mongooseDatabaseClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/database/mongooseDatabaseClient.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +47,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JavaScript" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pages/api" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/models" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -60,6 +65,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/models" />
       <recent name="$PROJECT_DIR$/pages/api" />
       <recent name="$PROJECT_DIR$/services/database/models" />
       <recent name="$PROJECT_DIR$/styles" />
@@ -106,7 +112,8 @@
       <workItem from="1607823432964" duration="7165000" />
       <workItem from="1607882966636" duration="5285000" />
       <workItem from="1607991169579" duration="7252000" />
-      <workItem from="1608069789232" duration="20078000" />
+      <workItem from="1608069789232" duration="20110000" />
+      <workItem from="1608219333692" duration="10894000" />
     </task>
     <servers />
   </component>

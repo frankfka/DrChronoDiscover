@@ -1,7 +1,9 @@
+import { DateTime } from 'luxon';
+
 export interface ChronoApiInfo {
   refreshToken: string;
   accessToken: string;
-  accessTokenExpiry: Date;
+  accessTokenExpiry: DateTime;
   clientId: string;
   clientSecret: string;
 }
@@ -9,7 +11,7 @@ export interface ChronoApiInfo {
 export function createChronoApiInfo(
   refreshToken: string,
   accessToken: string,
-  accessTokenExpiry: Date,
+  accessTokenExpiry: DateTime,
   clientId: string,
   clientSecret: string
 ): ChronoApiInfo {

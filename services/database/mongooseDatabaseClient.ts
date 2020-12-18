@@ -9,6 +9,7 @@ import Provider, {
   createProvider,
 } from '../../models/provider';
 import { MongooseProvider } from './models/mongooseProvider';
+import { DateTime } from 'luxon';
 
 export default class MongooseDatabaseClient {
   private readonly connectionUri: string;
@@ -60,7 +61,9 @@ export default class MongooseDatabaseClient {
           createChronoApiInfo(
             mongooseProvider.chronoApiInfo.refreshToken,
             mongooseProvider.chronoApiInfo.accessToken,
-            mongooseProvider.chronoApiInfo.accessTokenExpiry,
+            DateTime.fromJSDate(
+              mongooseProvider.chronoApiInfo.accessTokenExpiry
+            ),
             mongooseProvider.chronoApiInfo.clientId,
             mongooseProvider.chronoApiInfo.clientSecret
           )
@@ -71,14 +74,14 @@ export default class MongooseDatabaseClient {
   async updateProviderAuthentication(
     providerId: string,
     newAccessToken: string,
-    newAccessTokenExpiry: Date
+    newAccessTokenExpiry: DateTime
   ): Promise<void> {
     const mongooseProvider = await MongooseProvider.findById(providerId);
     if (mongooseProvider == null) {
       throw Error(`Could not find MongooseProvider with ID ${providerId}`);
     }
     mongooseProvider.chronoApiInfo.accessToken = newAccessToken;
-    mongooseProvider.chronoApiInfo.accessTokenExpiry = newAccessTokenExpiry;
+    mongooseProvider.chronoApiInfo.accessTokenExpiry = newAccessTokenExpiry.toJSDate();
     await mongooseProvider.save();
   }
 }

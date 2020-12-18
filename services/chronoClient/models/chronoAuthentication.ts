@@ -1,10 +1,11 @@
 import { ChronoApiInfo } from '../../../models/provider';
+import { DateTime } from 'luxon';
 
 export interface ChronoClientAuthentication {
   chronoApiInfo: ChronoApiInfo;
   onAccessTokenRefresh: (
     newAccessToken: string,
-    newAccessTokenExpiry: Date,
+    newAccessTokenExpiry: DateTime,
     newRefreshToken: string
   ) => void;
 }

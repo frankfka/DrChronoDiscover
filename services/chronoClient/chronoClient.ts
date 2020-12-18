@@ -35,11 +35,11 @@ export default class ChronoClient {
   }
 
   async getOfficeInfo(
-    officeId: string,
+    officeId: number,
     authentication: ChronoClientAuthentication
   ): Promise<ChronoOfficeData> {
     return this.executeGet<ChronoOfficeData>(
-      '/api/offices/' + officeId,
+      '/api/offices/' + officeId.toString(),
       authentication
     );
   }
@@ -50,7 +50,7 @@ export default class ChronoClient {
    */
   async getOfficeAppointments(
     date: DateTime,
-    officeId: string,
+    officeId: number,
     authentication: ChronoClientAuthentication
   ): Promise<Array<Appointment>> {
     const params: ChronoGetAppointmentsParams = {
@@ -72,7 +72,7 @@ export default class ChronoClient {
     gender: ChronoPatientGender,
     firstName: string,
     lastName: string,
-    doctorId: string,
+    doctorId: number,
     authentication: ChronoClientAuthentication
   ): Promise<void> {
     const patientData: ChronoCreatePatientParams = {
@@ -90,10 +90,10 @@ export default class ChronoClient {
   }
 
   async createAppointment(
-    doctorId: string,
-    patientId: string,
-    officeId: string,
-    examRoomId: string,
+    doctorId: number,
+    patientId: number,
+    officeId: number,
+    examRoomId: number,
     durationInMinutes: number,
     scheduledTime: DateTime,
     reason: string,
@@ -171,9 +171,7 @@ export default class ChronoClient {
     authentication: ChronoClientAuthentication
   ): Promise<string> {
     // Get expiry
-    const expiryDateTime = DateTime.fromJSDate(
-      authentication.chronoApiInfo.accessTokenExpiry
-    );
+    const expiryDateTime = authentication.chronoApiInfo.accessTokenExpiry;
     // Determine whether we need refresh
     if (
       expiryDateTime.diffNow().as('seconds') <
@@ -217,7 +215,7 @@ export default class ChronoClient {
     );
     authentication.onAccessTokenRefresh(
       response.data.accessToken,
-      newExpiryDate.toJSDate(),
+      newExpiryDate,
       response.data.refreshToken
     );
     return response.data.accessToken;

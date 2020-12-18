@@ -1,11 +1,10 @@
-import { DateTime } from 'luxon';
+import { Interval } from 'luxon';
 
 export interface Appointment {
-  doctorId: string;
-  durationInMinutes: number;
-  examRoomId: string;
-  officeId: string;
-  patientId: string;
+  doctorId: number;
+  examRoomId: number;
+  officeId: number;
+  patientId: number;
   reason: string;
-  scheduledTime: DateTime;
+  scheduledTimeInterval: Interval;
 }
