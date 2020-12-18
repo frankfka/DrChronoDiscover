@@ -2,15 +2,11 @@ import MongooseDatabaseClient from '../database/mongooseDatabaseClient';
 import ChronoClient from '../chronoClient/chronoClient';
 import Provider from '../../models/provider';
 import { ChronoClientAuthentication } from '../chronoClient/models/chronoAuthentication';
-import ProviderLocation, {
-  createProviderLocation,
-} from '../../models/providerLocation';
 import { AvailableBookingSlot } from '../../models/availableBookingSlot';
 import ChronoOfficeData from '../chronoClient/models/chronoOffice';
-import { DateTime, Interval } from 'luxon';
+import { DateTime, Duration, Interval } from 'luxon';
 import { fromChronoDateTimeString } from '../chronoClient/chronoClientDateUtils';
 import { Appointment } from '../../models/appointment';
-import { createGeolocation } from '../../models/geolocation';
 
 export default class BookingService {
   private readonly db: MongooseDatabaseClient;
@@ -22,26 +18,68 @@ export default class BookingService {
   }
 
   async testFn(args: Record<string, unknown>): Promise<unknown> {
-    const dateString = args['date'] as string;
-    const date: DateTime = DateTime.fromISO(dateString);
-    const providerLocation = createProviderLocation(
-      '5fd1b88d3aaeabb8efb87071',
-      '',
-      302887,
-      createGeolocation(0, 0)
-    );
-    return {
-      available: await this.getAvailableBookingTimes(date, providerLocation),
-    };
+    return {};
   }
 
-  async getAvailableBookingTimes(
+  /*
+  Returns a list of booking slots for a given date, with the given target duration
+   */
+  async getAvailableBookingTimesForDate(
     date: DateTime,
-    providerLocation: ProviderLocation
+    providerLocationId: string,
+    targetDurationInMinutes: number
+  ): Promise<Array<AvailableBookingSlot>> {
+    // Get all available slots
+    const allAvailableSlots = await this.getAllAvailableSlotsForDate(
+      date,
+      providerLocationId
+    );
+    const targetDuration = Duration.fromMillis(
+      targetDurationInMinutes * 60 * 1000
+    );
+
+    // Process into valid slots
+    const validBookingSlotsWithTargetDuration: Array<AvailableBookingSlot> = [];
+    allAvailableSlots.forEach((slot) => {
+      // Assume we don't need to round to the nearest 15min/half hour/full hour, etc
+      // So we can just split this into intervals of the desired length
+      validBookingSlotsWithTargetDuration.push(
+        ...slot.interval
+          .splitBy(targetDuration)
+          .filter((interval) => interval.toDuration().equals(targetDuration))
+          .map((interval) => {
+            return {
+              doctorId: slot.doctorId,
+              examRoomId: slot.examRoomId,
+              interval,
+            };
+          })
+      );
+    });
+    return validBookingSlotsWithTargetDuration;
+  }
+
+  /*
+  Get ALL available timeslots, regardless of length
+   */
+  private async getAllAvailableSlotsForDate(
+    date: DateTime,
+    providerLocationId: string
   ): Promise<Array<AvailableBookingSlot>> {
     /*
     API/DB calls
      */
+    // Get the provider location
+    const providerLocation = await this.db.getProviderLocationById(
+      providerLocationId
+    );
+    if (providerLocation == null) {
+      console.error(
+        'Could not find providerLocation with ID',
+        providerLocationId
+      );
+      return [];
+    }
     // Get the parent provider
     const parentProvider = await this.db.getProviderById(
       providerLocation.providerId

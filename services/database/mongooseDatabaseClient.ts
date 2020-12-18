@@ -41,6 +41,7 @@ export default class MongooseDatabaseClient {
     );
     return mongooseProviderLocations.map((mongooseModel) => {
       return createProviderLocation(
+        mongooseModel.id!,
         mongooseModel.providerId,
         mongooseModel.name,
         mongooseModel.officeId,
@@ -50,6 +51,26 @@ export default class MongooseDatabaseClient {
         )
       );
     });
+  }
+
+  async getProviderLocationById(
+    providerLocationId: string
+  ): Promise<ProviderLocation | undefined> {
+    const mongooseProviderLocation = await MongooseProviderLocation.findById(
+      providerLocationId
+    );
+    return mongooseProviderLocation
+      ? createProviderLocation(
+          mongooseProviderLocation.id!,
+          mongooseProviderLocation.providerId,
+          mongooseProviderLocation.name,
+          mongooseProviderLocation.officeId,
+          createGeolocation(
+            mongooseProviderLocation.location.coordinates[1],
+            mongooseProviderLocation.location.coordinates[0]
+          )
+        )
+      : undefined;
   }
 
   async getProviderById(providerId: string): Promise<Provider | undefined> {
