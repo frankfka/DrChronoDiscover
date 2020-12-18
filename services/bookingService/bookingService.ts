@@ -2,11 +2,13 @@ import MongooseDatabaseClient from '../database/mongooseDatabaseClient';
 import ChronoClient from '../chronoClient/chronoClient';
 import Provider from '../../models/provider';
 import { ChronoClientAuthentication } from '../chronoClient/models/chronoAuthentication';
-import { AvailableBookingSlot } from '../../models/availableBookingSlot';
+import { AvailableBookingSlot, BookingRequestSlot } from '../../models/booking';
 import ChronoOfficeData from '../chronoClient/models/chronoOffice';
 import { DateTime, Duration, Interval } from 'luxon';
 import { fromChronoDateTimeString } from '../chronoClient/chronoClientDateUtils';
 import { Appointment } from '../../models/appointment';
+import { UnregisteredPatient } from '../../models/patient';
+import ProviderLocation from '../../models/providerLocation';
 
 export default class BookingService {
   private readonly db: MongooseDatabaseClient;
@@ -19,6 +21,42 @@ export default class BookingService {
 
   async testFn(args: Record<string, unknown>): Promise<unknown> {
     return {};
+  }
+
+  async createAppointment(
+    providerLocationId: string,
+    patientData: UnregisteredPatient,
+    timeslotData: BookingRequestSlot,
+    reason = ''
+  ): Promise<Appointment | undefined> {
+    // Look up provider location
+    const providerInfo = await this.getLocationAndProviderByLocationId(
+      providerLocationId
+    );
+    if (providerInfo == null) {
+      return undefined;
+    }
+    const [providerLocation, parentProvider] = providerInfo;
+    // Create the patient
+    const registeredPatient = await this.chronoClient.createPatient(
+      patientData,
+      this.getChronoClientAuthentication(parentProvider)
+    );
+    // Make the appointment
+    const appointment = await this.chronoClient.createAppointment(
+      {
+        doctorId: timeslotData.doctorId,
+        durationInMinutes: timeslotData.durationInMinutes,
+        examRoomId: timeslotData.examRoomId,
+        officeId: providerLocation.officeId,
+        patientId: registeredPatient.id,
+        reason: reason,
+        scheduledISOTime: timeslotData.scheduledISOTime,
+      },
+      this.getChronoClientAuthentication(parentProvider)
+    );
+    console.log('Created appointment with ID', appointment.id);
+    return appointment;
   }
 
   /*
@@ -70,27 +108,13 @@ export default class BookingService {
     API/DB calls
      */
     // Get the provider location
-    const providerLocation = await this.db.getProviderLocationById(
+    const providerInfo = await this.getLocationAndProviderByLocationId(
       providerLocationId
     );
-    if (providerLocation == null) {
-      console.error(
-        'Could not find providerLocation with ID',
-        providerLocationId
-      );
+    if (providerInfo == null) {
       return [];
     }
-    // Get the parent provider
-    const parentProvider = await this.db.getProviderById(
-      providerLocation.providerId
-    );
-    if (parentProvider == null) {
-      console.error(
-        'Could not find provider for provider location',
-        providerLocation
-      );
-      return [];
-    }
+    const [providerLocation, parentProvider] = providerInfo;
     // Get info on office
     const providerLocationOfficeInfo: ChronoOfficeData = await this.chronoClient.getOfficeInfo(
       providerLocation.officeId,
@@ -215,6 +239,33 @@ export default class BookingService {
     });
 
     return availableBookingSlots;
+  }
+
+  private async getLocationAndProviderByLocationId(
+    providerLocationId: string
+  ): Promise<[ProviderLocation, Provider] | undefined> {
+    const providerLocation = await this.db.getProviderLocationById(
+      providerLocationId
+    );
+    if (providerLocation == null) {
+      console.error(
+        'Could not find providerLocation with ID',
+        providerLocationId
+      );
+      return undefined;
+    }
+    // Get the parent provider
+    const parentProvider = await this.db.getProviderById(
+      providerLocation.providerId
+    );
+    if (parentProvider == null) {
+      console.error(
+        'Could not find provider for provider location',
+        providerLocation
+      );
+      return undefined;
+    }
+    return [providerLocation, parentProvider];
   }
 
   private getChronoClientAuthentication(

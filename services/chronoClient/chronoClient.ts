@@ -14,14 +14,10 @@ import {
   convertChronoAppointmentToAppointment,
 } from './models/chronoAppointment';
 import { Appointment } from '../../models/appointment';
-import {
-  toChronoDateString,
-  toChronoDateTimeString,
-} from './chronoClientDateUtils';
-import {
-  ChronoCreatePatientParams,
-  ChronoPatientGender,
-} from './models/chronoPatient';
+import { toChronoDateString } from './chronoClientDateUtils';
+import { ChronoCreatePatientData } from './models/chronoPatient';
+import { Patient, UnregisteredPatient } from '../../models/patient';
+import { BookingRequest } from '../../models/booking';
 
 export default class ChronoClient {
   private static AUTH_EXPIRY_LIMIT_SECONDS = 10;
@@ -69,44 +65,30 @@ export default class ChronoClient {
   }
 
   async createPatient(
-    gender: ChronoPatientGender,
-    firstName: string,
-    lastName: string,
-    doctorId: number,
+    patientData: UnregisteredPatient,
     authentication: ChronoClientAuthentication
-  ): Promise<void> {
-    const patientData: ChronoCreatePatientParams = {
-      gender: gender,
-      firstName: firstName,
-      lastName: lastName,
-      doctor: doctorId,
-    };
-    const createPatientResult = await this.executePost<unknown>(
+  ): Promise<Patient> {
+    const createPatientResult = await this.executePost<ChronoCreatePatientData>(
       '/api/patients',
       authentication,
       patientData
     );
     console.log('Create patient success', createPatientResult);
+    return createPatientResult; // Interfaces for Patient and ChronoCreatePatientData are the same
   }
 
   async createAppointment(
-    doctorId: number,
-    patientId: number,
-    officeId: number,
-    examRoomId: number,
-    durationInMinutes: number,
-    scheduledTime: DateTime,
-    reason: string,
+    request: BookingRequest,
     authentication: ChronoClientAuthentication
   ): Promise<Appointment> {
     const appointmentData: ChronoCreateAppointmentParams = {
-      doctor: doctorId,
-      examRoom: examRoomId,
-      scheduledTime: toChronoDateTimeString(scheduledTime),
-      patient: patientId,
-      office: officeId,
-      duration: durationInMinutes,
-      reason: reason,
+      doctor: request.doctorId,
+      examRoom: request.examRoomId,
+      scheduledTime: request.scheduledISOTime,
+      patient: request.patientId,
+      office: request.officeId,
+      duration: request.durationInMinutes,
+      reason: request.reason,
     };
     const createAppointmentResult = await this.executePost<ChronoAppointmentData>(
       '/api/appointments',

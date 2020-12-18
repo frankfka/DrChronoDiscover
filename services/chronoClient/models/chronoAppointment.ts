@@ -14,6 +14,7 @@ export interface ChronoCreateAppointmentParams {
 }
 
 export interface ChronoAppointmentData {
+  id: string;
   doctor: number;
   duration: number;
   examRoom: number;
@@ -28,6 +29,7 @@ export function convertChronoAppointmentToAppointment(
 ): Appointment {
   const startTime = fromChronoDateTimeString(chronoAppointment.scheduledTime);
   return {
+    id: chronoAppointment.id,
     doctorId: chronoAppointment.doctor,
     examRoomId: chronoAppointment.examRoom,
     officeId: chronoAppointment.office,

@@ -6,3 +6,7 @@ export interface ChronoCreatePatientParams {
   lastName: string;
   doctor: number;
 }
+
+export type ChronoCreatePatientData = ChronoCreatePatientParams & {
+  id: number;
+};
