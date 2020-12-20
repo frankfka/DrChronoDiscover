@@ -12,6 +12,7 @@ import axios from 'axios';
 import ProviderLocation from '../models/providerLocation';
 import ResultList from '../components/ResultList/ResultList';
 import BookingModal from '../components/BookingModal/BookingModal';
+import AppointmentSearchBar from '../components/AppointmentSearchBar/AppointmentSearchBar';
 const { Header, Footer, Content } = Layout;
 
 async function getCurrentLocation(): Promise<Geolocation> {
@@ -120,7 +121,12 @@ export default function Search(): JSX.Element {
       )}
 
       {/*Main Content*/}
-      <Header>Header</Header>
+      <Header style={{ backgroundColor: 'white' }}>
+        <h1>Search</h1>
+      </Header>
+      <div style={{ padding: 5, backgroundColor: 'lightgray' }}>
+        <AppointmentSearchBar />
+      </div>
       <Content>
         <Row className={styles.searchPageContent}>
           <Col span={18} className={styles.searchPageContent}>

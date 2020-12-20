@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ca4a0ae-d647-43dc-9abd-679bf1127014" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/pages/api/testEndpoint.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/bookingService/bookingService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/bookingService/bookingService.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/AppointmentDatePicker/AppointmentDatePicker.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/AppointmentSearchBar/AppointmentSearchBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ResultList/ResultList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ResultList/ResultList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/search.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/search.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +23,8 @@
       <list>
         <option value="JavaScript File" />
         <option value="SCSS File" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -36,7 +41,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JavaScript" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/models/api" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -48,7 +53,7 @@
     <property name="node.js.selected.package.standard" value="" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.TypeScript" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -61,11 +66,11 @@
       <recent name="$PROJECT_DIR$/styles" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/components" />
       <recent name="$PROJECT_DIR$/components/BookingModal/Form" />
       <recent name="$PROJECT_DIR$/components/BookingModal" />
       <recent name="$PROJECT_DIR$/components/ResultMap" />
-      <recent name="$PROJECT_DIR$/components/ResultList" />
     </key>
   </component>
   <component name="RunManager">
@@ -103,6 +108,8 @@
       <workItem from="1607991169579" duration="7252000" />
       <workItem from="1608069789232" duration="20110000" />
       <workItem from="1608219333692" duration="23037000" />
+      <workItem from="1608323759702" duration="220000" />
+      <workItem from="1608495440899" duration="5329000" />
     </task>
     <servers />
   </component>
