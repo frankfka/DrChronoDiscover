@@ -1,7 +1,8 @@
-import Geolocation from '../../models/geolocation';
-import ProviderLocation from '../../models/providerLocation';
+import Geolocation from '../../../models/geolocation';
+import ProviderLocation from '../../../models/providerLocation';
 import { Button, List } from 'antd';
 import { MouseEventHandler } from 'react';
+import { ProviderLocationWithAvailability } from '../searchPageModels';
 
 interface ResultListItemProps {
   location: ProviderLocation;
@@ -33,23 +34,27 @@ function ResultListItem({
 interface ResultListProps {
   className?: string;
   searchLocation: Geolocation;
-  resultLocations: Array<ProviderLocation>;
-  selectedIndex: number | undefined;
-  onResultLocationClicked?: (location: ProviderLocation) => void;
-  onResultLocationBookClicked?: (location: ProviderLocation) => void;
+  resultLocations: Array<ProviderLocationWithAvailability>;
+  selectedLocationId: string | undefined;
+  onResultLocationClicked?: (
+    location: ProviderLocationWithAvailability
+  ) => void;
+  onResultLocationBookClicked?: (
+    location: ProviderLocationWithAvailability
+  ) => void;
 }
 
 export default function ResultList({
   resultLocations,
-  selectedIndex,
+  selectedLocationId,
   className,
   onResultLocationClicked,
   onResultLocationBookClicked,
 }: ResultListProps): JSX.Element {
-  const onItemClick = (index: number, location: ProviderLocation): void => {
+  const onItemClick = (location: ProviderLocationWithAvailability): void => {
     onResultLocationClicked?.(location);
   };
-  const onBookClick = (index: number, location: ProviderLocation): void => {
+  const onBookClick = (location: ProviderLocationWithAvailability): void => {
     onResultLocationBookClicked?.(location);
   };
 
@@ -58,12 +63,12 @@ export default function ResultList({
       className={className}
       itemLayout={'vertical'}
       dataSource={resultLocations}
-      renderItem={(item, index) => (
+      renderItem={(location) => (
         <ResultListItem
-          isSelected={index === selectedIndex}
-          location={item}
-          onClick={() => onItemClick(index, item)}
-          onBookClick={() => onBookClick(index, item)}
+          isSelected={location.id === selectedLocationId}
+          location={location}
+          onClick={() => onItemClick(location)}
+          onBookClick={() => onBookClick(location)}
         />
       )}
     />

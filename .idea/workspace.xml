@@ -5,9 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ca4a0ae-d647-43dc-9abd-679bf1127014" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/components/SearchPage/SearchPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/SearchPage/searchPageModels.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/SearchPage/searchPageQueries.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/AppointmentDatePicker/AppointmentDatePicker.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/AppointmentDatePicker/AppointmentDatePicker.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/AppointmentSearchBar/AppointmentSearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/AppointmentSearchBar/AppointmentSearchBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/AppointmentDatePicker/AppointmentDatePicker.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/AppointmentDatePicker/AppointmentDatePicker.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/AppointmentSearchBar/AppointmentSearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/AppointmentSearchBar/AppointmentSearchBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/BookingForm/BookingForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/BookingForm/BookingForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/BookingForm/TextInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/BookingForm/TextInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/BookingModal/BookingModal.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/BookingModal/BookingModal.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/BookingModal/BookingModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/BookingModal/BookingModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ResultList/LoadingResultList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/ResultList/LoadingResultList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ResultList/ResultList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/ResultList/ResultList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ResultMap/ResultMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/ResultMap/ResultMap.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/search.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/search.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,11 +73,11 @@
       <recent name="$PROJECT_DIR$/styles" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/components/SearchPage" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/components" />
       <recent name="$PROJECT_DIR$/components/BookingModal/Form" />
       <recent name="$PROJECT_DIR$/components/BookingModal" />
-      <recent name="$PROJECT_DIR$/components/ResultMap" />
     </key>
   </component>
   <component name="RunManager">
@@ -107,7 +117,7 @@
       <workItem from="1608219333692" duration="23037000" />
       <workItem from="1608323759702" duration="220000" />
       <workItem from="1608495440899" duration="5657000" />
-      <workItem from="1608524553762" duration="4596000" />
+      <workItem from="1608524553762" duration="9035000" />
     </task>
     <servers />
   </component>

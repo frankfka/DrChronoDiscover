@@ -4,8 +4,9 @@ import { Formik, FormikProps } from 'formik';
 import React from 'react';
 import { FormikHelpers } from 'formik/dist/types';
 import TextInput from './TextInput';
+import { AvailableTimeslot } from '../../../models/api/availableTimesApiModels';
 
-interface BookingFormValues {
+export interface BookingFormValues {
   firstName: string;
   lastName: string;
   email: string;
@@ -90,23 +91,33 @@ function createFormFromFormik({
   );
 }
 
-export default function BookingForm(): JSX.Element {
+interface BookingFormProps {
+  availableSlots: Array<AvailableTimeslot>;
+  onSubmit: (values: BookingFormValues) => Promise<void>;
+}
+
+export default function BookingForm({
+  availableSlots,
+  onSubmit,
+}: BookingFormProps): JSX.Element {
   const initialFormValues = createInitialFormValues();
-  const onSubmit = (
+  const onSubmitHandler = (
     values: BookingFormValues,
     { setSubmitting }: FormikHelpers<BookingFormValues>
   ): void => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
-
-      setSubmitting(false);
-    }, 400);
+    onSubmit(values)
+      .then(() => setSubmitting(false))
+      .catch((err) => {
+        console.error('Error submitting form', err);
+        // TODO: Show err
+        setSubmitting(false);
+      });
   };
   return (
     <Formik
       initialValues={initialFormValues}
       validationSchema={validationSchema}
-      onSubmit={onSubmit}
+      onSubmit={onSubmitHandler}
     >
       {(formik: FormikProps<BookingFormValues>) => createFormFromFormik(formik)}
     </Formik>

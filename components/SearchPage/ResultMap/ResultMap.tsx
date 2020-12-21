@@ -1,18 +1,20 @@
 import GoogleMapReact from 'google-map-react';
-import Geolocation from '../../models/geolocation';
-import ProviderLocation from '../../models/providerLocation';
+import Geolocation from '../../../models/geolocation';
+import { ProviderLocationWithAvailability } from '../searchPageModels';
 
 interface ResultMapProps {
   searchLocation: Geolocation;
-  resultLocations: Array<ProviderLocation>;
-  selectedIndex: number | undefined;
-  onResultLocationClicked?: (location: ProviderLocation) => void;
+  resultLocations: Array<ProviderLocationWithAvailability>;
+  selectedLocationId: string | undefined;
+  onResultLocationClicked?: (
+    location: ProviderLocationWithAvailability
+  ) => void;
 }
 
 type MarkerProps = Geolocation;
 
 interface TextMarkerProps extends MarkerProps {
-  providerLocation: ProviderLocation;
+  providerLocation: ProviderLocationWithAvailability;
   isSelected: boolean;
 }
 
@@ -38,16 +40,15 @@ const TextMarker = ({
 export default function ResultMap({
   searchLocation,
   resultLocations,
-  selectedIndex,
+  selectedLocationId,
   onResultLocationClicked,
 }: ResultMapProps): JSX.Element {
   const apiKey: string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!;
   const defaultCenter: Geolocation = searchLocation;
   const defaultZoom = 11;
-  let currentCenter: Geolocation | undefined;
-  if (selectedIndex !== undefined) {
-    currentCenter = resultLocations[selectedIndex].location;
-  }
+  const currentCenter: Geolocation | undefined = resultLocations.find(
+    (loc) => loc.id === selectedLocationId
+  )?.location;
 
   return (
     <GoogleMapReact
@@ -56,18 +57,17 @@ export default function ResultMap({
       defaultCenter={defaultCenter}
       defaultZoom={defaultZoom}
       onChildClick={(key, childProps: TextMarkerProps) => {
-        // TODO: Temporarily using key as index here
         onResultLocationClicked?.(childProps.providerLocation);
       }}
     >
-      {resultLocations.map((loc, index) => {
+      {resultLocations.map((loc) => {
         return (
           <TextMarker
             lat={loc.location.lat}
             lng={loc.location.lng}
             providerLocation={loc}
-            isSelected={index === selectedIndex}
-            key={index}
+            isSelected={loc.id === selectedLocationId}
+            key={loc.id}
           />
         );
       })}
