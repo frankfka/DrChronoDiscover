@@ -45,3 +45,23 @@ export const durationToMinutes = (duration: Duration): number => {
 export const durationFromMinutes = (numMinutes: number): Duration => {
   return Duration.fromMillis(numMinutes * 60 * 1000);
 };
+
+type FormatDateTimeStringType = 'date' | 'time';
+export const dateTimeToFormattedString = (
+  dateTime: DateTime,
+  type: FormatDateTimeStringType
+): string => {
+  switch (type) {
+    case 'date':
+      return dateTime.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
+    case 'time':
+      return dateTime.toLocaleString(DateTime.TIME_SIMPLE);
+  }
+};
+
+export const isoToFormattedString = (
+  isoDate: string,
+  type: FormatDateTimeStringType
+): string => {
+  return dateTimeToFormattedString(DateTime.fromISO(isoDate), type);
+};

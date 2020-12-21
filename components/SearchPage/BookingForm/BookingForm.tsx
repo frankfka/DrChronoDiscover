@@ -5,8 +5,12 @@ import React from 'react';
 import { FormikHelpers } from 'formik/dist/types';
 import TextInput from './TextInput';
 import { AvailableTimeslot } from '../../../models/api/availableTimesApiModels';
+import SelectInput, { SelectInputOption } from './SelectInput';
+import { isoToFormattedString } from '../../../utils/dateUtils';
+import { DateTime } from 'luxon';
 
 export interface BookingFormValues {
+  selectedTimeslotIndex: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -16,6 +20,7 @@ export interface BookingFormValues {
 
 const validationSchema: yup.SchemaOf<BookingFormValues> = yup
   .object({
+    selectedTimeslotIndex: yup.number().required('Required'),
     firstName: yup.string().trim().required('Required'),
     lastName: yup.string().trim().required('Required'),
     email: yup.string().trim().email('Invalid email').required('Required'),
@@ -26,6 +31,7 @@ const validationSchema: yup.SchemaOf<BookingFormValues> = yup
 
 const createInitialFormValues = (): BookingFormValues => {
   return {
+    selectedTimeslotIndex: 0,
     firstName: '',
     lastName: '',
     email: '',
@@ -34,13 +40,19 @@ const createInitialFormValues = (): BookingFormValues => {
   };
 };
 
-function createFormFromFormik({
-  isSubmitting,
-  submitForm,
-  handleReset,
-}: FormikProps<BookingFormValues>): JSX.Element {
+function createFormFromFormik(
+  availableTimeslotOptions: Array<SelectInputOption>,
+  { isSubmitting, submitForm, handleReset }: FormikProps<BookingFormValues>
+): JSX.Element {
   return (
     <Form onFinish={submitForm} layout={'vertical'} onReset={handleReset}>
+      {/*Timeslot*/}
+      <SelectInput
+        inputLabel="Time Slot"
+        name="selectedTimeslotIndex"
+        values={availableTimeslotOptions}
+      />
+
       {/*First Name*/}
       <TextInput
         inputLabel="First Name"
@@ -101,6 +113,17 @@ export default function BookingForm({
   onSubmit,
 }: BookingFormProps): JSX.Element {
   const initialFormValues = createInitialFormValues();
+  // Key the select input by index
+  const availableTimeslotOptions: Array<SelectInputOption> = availableSlots.map(
+    (slot, index) => {
+      return {
+        value: index,
+        label: `${isoToFormattedString(slot.isoStartTime, 'time')} (${
+          slot.duration
+        } min)`,
+      };
+    }
+  );
   const onSubmitHandler = (
     values: BookingFormValues,
     { setSubmitting }: FormikHelpers<BookingFormValues>
@@ -119,7 +142,9 @@ export default function BookingForm({
       validationSchema={validationSchema}
       onSubmit={onSubmitHandler}
     >
-      {(formik: FormikProps<BookingFormValues>) => createFormFromFormik(formik)}
+      {(formik: FormikProps<BookingFormValues>) =>
+        createFormFromFormik(availableTimeslotOptions, formik)
+      }
     </Formik>
   );
 }
