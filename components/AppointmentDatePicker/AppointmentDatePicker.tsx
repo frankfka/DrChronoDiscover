@@ -1,20 +1,20 @@
 import moment from 'moment';
 import { DatePicker } from 'antd';
+import { DateTime } from 'luxon';
 
-interface AppointmentDatePickerProps {
-  value: Date;
-  onChange: (date: Date) => void;
-  onConfirm?: (date: Date) => void;
+export interface AppointmentDatePickerProps {
+  value: DateTime;
+  onChange: (date: DateTime) => void;
 }
 
 export default function AppointmentDatePicker({
   value,
   onChange,
 }: AppointmentDatePickerProps): JSX.Element {
-  const momentValue = moment(value);
+  const momentValue = moment(value.toJSDate());
   const momentOnChange = (newMomentValue: moment.Moment | null): void => {
     if (newMomentValue) {
-      onChange(newMomentValue.toDate());
+      onChange(DateTime.fromJSDate(newMomentValue.toDate()));
     }
   };
   const isDateDisabled = (momentDate: moment.Moment): boolean => {
