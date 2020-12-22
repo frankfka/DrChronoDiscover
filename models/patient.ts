@@ -1,6 +1,6 @@
 export type Gender = 'Male' | 'Female';
 
-export type UnregisteredPatient = Omit<Patient, 'id' & 'doctor'>;
+export type UnregisteredPatient = Omit<Omit<Patient, 'id'>, 'doctor'>;
 
 export interface Patient {
   id: number;

@@ -7,12 +7,13 @@ import TextInput from './TextInput';
 import { AvailableTimeslot } from '../../../models/api/availableTimesApiModels';
 import SelectInput, { SelectInputOption } from './SelectInput';
 import { isoToFormattedString } from '../../../utils/dateUtils';
-import { DateTime } from 'luxon';
+import { Gender } from '../../../models/patient';
 
 export interface BookingFormValues {
   selectedTimeslotIndex: number;
   firstName: string;
   lastName: string;
+  gender: Gender;
   email: string;
   phoneNumber: string;
   visitReason: string;
@@ -20,12 +21,16 @@ export interface BookingFormValues {
 
 const validationSchema: yup.SchemaOf<BookingFormValues> = yup
   .object({
-    selectedTimeslotIndex: yup.number().required('Required'),
-    firstName: yup.string().trim().required('Required'),
-    lastName: yup.string().trim().required('Required'),
-    email: yup.string().trim().email('Invalid email').required('Required'),
-    phoneNumber: yup.string().trim().required('Required'),
-    visitReason: yup.string().trim().required('Required'),
+    selectedTimeslotIndex: yup.number().required('Please select a timeslot'),
+    firstName: yup.string().trim().required('Please enter your first name'),
+    lastName: yup.string().trim().required('Please enter your last name'),
+    gender: yup.mixed<Gender>().oneOf(['Male', 'Female']).required(),
+    email: yup.string().trim().email().required('Please enter a valid email'),
+    phoneNumber: yup
+      .string()
+      .trim()
+      .required('Please enter a valid phone number'),
+    visitReason: yup.string().trim().required('Please enter a visit reason'),
   })
   .defined();
 
@@ -34,6 +39,7 @@ const createInitialFormValues = (): BookingFormValues => {
     selectedTimeslotIndex: 0,
     firstName: '',
     lastName: '',
+    gender: 'Male',
     email: '',
     phoneNumber: '',
     visitReason: '',
@@ -42,13 +48,33 @@ const createInitialFormValues = (): BookingFormValues => {
 
 function createFormFromFormik(
   availableTimeslotOptions: Array<SelectInputOption>,
-  { isSubmitting, submitForm, handleReset }: FormikProps<BookingFormValues>
+  {
+    isSubmitting,
+    submitForm,
+    handleReset,
+    initialValues,
+  }: FormikProps<BookingFormValues>
 ): JSX.Element {
+  const genderOptions: Array<SelectInputOption> = [
+    {
+      value: 'Male',
+      label: 'Male',
+    },
+    {
+      value: 'Female',
+      label: 'Female',
+    },
+  ];
   return (
-    <Form onFinish={submitForm} layout={'vertical'} onReset={handleReset}>
+    <Form
+      onFinish={submitForm}
+      layout={'vertical'}
+      onReset={handleReset}
+      initialValues={initialValues}
+    >
       {/*Timeslot*/}
       <SelectInput
-        inputLabel="Time Slot"
+        inputLabel="Timeslot"
         name="selectedTimeslotIndex"
         values={availableTimeslotOptions}
       />
@@ -58,7 +84,7 @@ function createFormFromFormik(
         inputLabel="First Name"
         name="firstName"
         type="text"
-        placeholder="Jane"
+        placeholder="First Name"
       />
 
       {/*Last Name*/}
@@ -66,15 +92,18 @@ function createFormFromFormik(
         inputLabel="Last Name"
         name="lastName"
         type="text"
-        placeholder="Doe"
+        placeholder="Last Name"
       />
+
+      {/*Gender*/}
+      <SelectInput inputLabel="Gender" name="gender" values={genderOptions} />
 
       {/*Email*/}
       <TextInput
         inputLabel="Email"
         name="email"
         type="email"
-        placeholder="JaneDoe@Email.com"
+        placeholder="youremail@email.com"
       />
 
       {/*Phone Number*/}
@@ -128,13 +157,12 @@ export default function BookingForm({
     values: BookingFormValues,
     { setSubmitting }: FormikHelpers<BookingFormValues>
   ): void => {
-    onSubmit(values)
-      .then(() => setSubmitting(false))
-      .catch((err) => {
-        console.error('Error submitting form', err);
-        // TODO: Show err
-        setSubmitting(false);
-      });
+    onSubmit(values).then(
+      // Success case
+      () => setSubmitting(false),
+      // Error case
+      () => setSubmitting(false)
+    );
   };
   return (
     <Formik

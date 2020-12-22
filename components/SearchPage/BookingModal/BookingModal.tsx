@@ -3,6 +3,8 @@ import { Modal } from 'antd';
 import styles from './BookingModal.module.scss';
 import BookingForm, { BookingFormValues } from '../BookingForm/BookingForm';
 import { ProviderLocationWithAvailability } from '../searchPageModels';
+import { useMutation } from 'react-query';
+import { bookAppointment } from '../searchPageMutations';
 
 interface BookingModalProps {
   locationWithAvailabilities: ProviderLocationWithAvailability;
@@ -15,14 +17,15 @@ export default function BookingModal({
   closeClicked,
   locationWithAvailabilities,
 }: BookingModalProps): JSX.Element {
-  const onSubmit = (values: BookingFormValues): Promise<void> => {
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        resolve();
-      }, 400);
+  const mutation = useMutation(bookAppointment);
+  const onSubmit = async (values: BookingFormValues): Promise<void> => {
+    await mutation.mutateAsync({
+      bookingFormValues: values,
+      locationWithAvailabilities,
     });
   };
+  // TODO: Display final status
+  console.log(mutation.status);
   return (
     <Modal
       className={styles.bookingModal}

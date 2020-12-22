@@ -6,7 +6,9 @@ import { dateTimeToISO } from '../utils/dateUtils';
 import {
   getCurrentLocation,
   getNearbyProviderLocations,
+  GetNearbyProviderLocationsParams,
   getProviderLocationAvailableTimes,
+  GetProviderLocationAvailableTimesParams,
 } from '../components/SearchPage/searchPageQueries';
 import SearchPage from '../components/SearchPage/SearchPage';
 
@@ -32,28 +34,33 @@ export default function Search(): JSX.Element {
   });
 
   // Get nearby
+  const nearbyQueryParams: Partial<GetNearbyProviderLocationsParams> = {
+    location: currentLocation,
+    maxDistance: 30000, // 30km
+  };
   const {
     data: nearbyQueryData,
     error: nearbyQueryError,
     isLoading: loadingNearbyQuery,
-  } = useQuery(['nearby', currentLocation], getNearbyProviderLocations, {
-    enabled: currentLocation,
+  } = useQuery(['nearby', nearbyQueryParams], getNearbyProviderLocations, {
+    enabled: !!currentLocation,
   });
 
   // Get available slots for each location returned from nearby query
+  const availableSlotsQueryParams: Partial<GetProviderLocationAvailableTimesParams> = {
+    providerLocations: nearbyQueryData?.locations,
+    isoSearchDate: dateTimeToISO(searchDate, 'date'),
+    targetDurationMinutes: 60,
+  };
   const {
     data: availableTimesQueryData,
     error: availableTimesQueryError,
     isLoading: loadingAvailableTimesQuery,
   } = useQuery(
-    [
-      'availableTimes',
-      nearbyQueryData?.locations,
-      dateTimeToISO(searchDate, 'date'),
-    ],
+    ['availableTimes', availableSlotsQueryParams],
     getProviderLocationAvailableTimes,
     {
-      enabled: nearbyQueryData,
+      enabled: !!nearbyQueryData,
     }
   );
 

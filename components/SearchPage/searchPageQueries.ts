@@ -9,6 +9,7 @@ import {
   AvailableTimesApiQueryParams,
   AvailableTimesApiResponse,
 } from '../../models/api/availableTimesApiModels';
+import { QueryFunctionContext } from 'react-query/types/core/types';
 
 export async function getCurrentLocation(): Promise<Geolocation> {
   const currentPosition = await new Promise<GeolocationPosition>(
@@ -21,14 +22,20 @@ export async function getCurrentLocation(): Promise<Geolocation> {
   );
 }
 
-export async function getNearbyProviderLocations(
-  key: string, // React-Query key
-  location: Geolocation,
-  maxDistance = 30000 // 30km default
-): Promise<NearbyApiResponse> {
+export type GetNearbyProviderLocationsParams = {
+  location: Geolocation;
+  maxDistance: number;
+};
+
+export async function getNearbyProviderLocations({
+  queryKey,
+}: QueryFunctionContext<
+  [string, GetNearbyProviderLocationsParams]
+>): Promise<NearbyApiResponse> {
+  const params = queryKey[1];
   const queryParams: NearbyApiQueryParams = {
-    ...location,
-    maxDistance: maxDistance,
+    ...params.location,
+    maxDistance: params.maxDistance,
   };
   const response = await axios.get('/api/nearby', {
     params: queryParams,
@@ -39,16 +46,22 @@ export async function getNearbyProviderLocations(
   return response.data as NearbyApiResponse;
 }
 
-export async function getProviderLocationAvailableTimes(
-  key: string, // React-Query key
-  providerLocations: Array<ProviderLocation>,
-  isoSearchDate: string,
-  targetDurationMinutes = 30
-): Promise<AvailableTimesApiResponse> {
+export type GetProviderLocationAvailableTimesParams = {
+  providerLocations: Array<ProviderLocation>;
+  isoSearchDate: string;
+  targetDurationMinutes: number;
+};
+
+export async function getProviderLocationAvailableTimes({
+  queryKey,
+}: QueryFunctionContext<
+  [string, GetProviderLocationAvailableTimesParams]
+>): Promise<AvailableTimesApiResponse> {
+  const params = queryKey[1];
   const queryParams: AvailableTimesApiQueryParams = {
-    locationIds: providerLocations.map((loc) => loc.id).join(','), // Comma separated list of ID's
-    targetDuration: targetDurationMinutes,
-    isoDate: isoSearchDate,
+    locationIds: params.providerLocations.map((loc) => loc.id).join(','), // Comma separated list of ID's
+    targetDuration: params.targetDurationMinutes,
+    isoDate: params.isoSearchDate,
   };
   const response = await axios.get('/api/availableTimes', {
     params: queryParams,
