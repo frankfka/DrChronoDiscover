@@ -4,10 +4,10 @@ import { Formik, FormikProps } from 'formik';
 import React from 'react';
 import { FormikHelpers } from 'formik/dist/types';
 import TextInput from './TextInput';
-import { AvailableTimeslot } from '../../../models/api/availableTimesApiModels';
+import { AvailableTimeslot } from '../../../../models/api/availableTimesApiModels';
 import SelectInput, { SelectInputOption } from './SelectInput';
-import { isoToFormattedString } from '../../../utils/dateUtils';
-import { Gender } from '../../../models/patient';
+import { isoToFormattedString } from '../../../../utils/dateUtils';
+import { Gender } from '../../../../models/patient';
 
 export interface BookingFormValues {
   selectedTimeslotIndex: number;

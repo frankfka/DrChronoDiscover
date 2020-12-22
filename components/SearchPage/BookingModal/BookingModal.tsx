@@ -1,15 +1,49 @@
 import React from 'react';
-import { Modal } from 'antd';
+import { Modal, Spin } from 'antd';
 import styles from './BookingModal.module.scss';
-import BookingForm, { BookingFormValues } from '../BookingForm/BookingForm';
+import BookingForm, { BookingFormValues } from './BookingForm/BookingForm';
 import { ProviderLocationWithAvailability } from '../searchPageModels';
-import { useMutation } from 'react-query';
+import { MutationStatus, useMutation } from 'react-query';
 import { bookAppointment } from '../searchPageMutations';
+import BookingModalStatus from './Status/BookingModalStatus';
 
 interface BookingModalProps {
   locationWithAvailabilities: ProviderLocationWithAvailability;
   isVisible: boolean;
   closeClicked: () => void;
+}
+
+interface BookingModalContentProps extends BookingModalProps {
+  status: MutationStatus;
+  bookedAppointmentId?: string;
+  onSubmitBooking: (values: BookingFormValues) => Promise<void>;
+}
+
+function BookingModalContent({
+  locationWithAvailabilities,
+  onSubmitBooking,
+  closeClicked,
+  status,
+  bookedAppointmentId,
+}: BookingModalContentProps): JSX.Element {
+  if (status === 'idle' || status === 'loading') {
+    return (
+      <Spin tip="Booking Your Appointment..." spinning={status === 'loading'}>
+        <BookingForm
+          availableSlots={locationWithAvailabilities.availableSlots}
+          onSubmit={onSubmitBooking}
+        />
+      </Spin>
+    );
+  } else {
+    return (
+      <BookingModalStatus
+        status={status}
+        onDismiss={closeClicked}
+        appointmentId={bookedAppointmentId}
+      />
+    );
+  }
 }
 
 export default function BookingModal({
@@ -18,14 +52,13 @@ export default function BookingModal({
   locationWithAvailabilities,
 }: BookingModalProps): JSX.Element {
   const mutation = useMutation(bookAppointment);
-  const onSubmit = async (values: BookingFormValues): Promise<void> => {
+  const bookingStatus = mutation.status;
+  const onSubmitBooking = async (values: BookingFormValues): Promise<void> => {
     await mutation.mutateAsync({
       bookingFormValues: values,
       locationWithAvailabilities,
     });
   };
-  // TODO: Display final status
-  console.log(mutation.status);
   return (
     <Modal
       className={styles.bookingModal}
@@ -36,11 +69,20 @@ export default function BookingModal({
       destroyOnClose={true}
       // On close function
       onCancel={closeClicked}
+      bodyStyle={{ padding: 0 }}
     >
-      <BookingForm
-        availableSlots={locationWithAvailabilities.availableSlots}
-        onSubmit={onSubmit}
-      />
+      <div className={styles.bookingModalContent}>
+        <BookingModalContent
+          {...{
+            isVisible,
+            closeClicked,
+            locationWithAvailabilities,
+            status: bookingStatus,
+            onSubmitBooking,
+            bookedAppointmentId: mutation.data?.appointmentId,
+          }}
+        />
+      </div>
     </Modal>
   );
 }

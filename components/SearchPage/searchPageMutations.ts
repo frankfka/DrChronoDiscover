@@ -14,7 +14,7 @@ import {
 } from '../../models/api/bookApiModels';
 import { UnregisteredPatient } from '../../models/patient';
 import { BookingRequestSlot } from '../../models/booking';
-import { BookingFormValues } from './BookingForm/BookingForm';
+import { BookingFormValues } from './BookingModal/BookingForm/BookingForm';
 import { ProviderLocationWithAvailability } from './searchPageModels';
 
 export type BookAppointmentParams = {
