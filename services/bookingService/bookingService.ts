@@ -86,15 +86,16 @@ export default class BookingService {
       })
     );
     for (const slot of allAvailableSlotsForDate) {
-      if (slot.interval.isBefore(filterAfterDateTime)) {
-        continue;
-      }
       // Assume we don't need to round to the nearest 15min/half hour/full hour, etc
       // So we can just split this into intervals of the desired length
       validBookingSlotsWithTargetDuration.push(
         ...slot.interval
           .splitBy(targetDuration)
-          .filter((interval) => interval.toDuration().equals(targetDuration))
+          .filter(
+            (interval) =>
+              interval.toDuration().equals(targetDuration) &&
+              interval.isAfter(filterAfterDateTime)
+          )
           .map((interval) => {
             return {
               doctorId: slot.doctorId,
