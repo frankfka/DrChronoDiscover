@@ -50,7 +50,7 @@ export default function Search(): JSX.Element {
   const availableSlotsQueryParams: Partial<GetProviderLocationAvailableTimesParams> = {
     providerLocations: nearbyQueryData?.locations,
     isoSearchDate: dateTimeToISO(searchDate, 'date'),
-    targetDurationMinutes: 60,
+    targetDurationMinutes: 30,
   };
   const {
     data: availableTimesQueryData,

@@ -70,17 +70,25 @@ export default class BookingService {
     targetDurationInMinutes: number
   ): Promise<Array<AvailableBookingSlot>> {
     // Get all available slots
-    const allAvailableSlots = await this.getAllAvailableSlotsForDate(
+    const allAvailableSlotsForDate = await this.getAllAvailableSlotsForDate(
       date,
       providerLocationId
     );
     const targetDuration = Duration.fromMillis(
       targetDurationInMinutes * 60 * 1000
     );
-
     // Process into valid slots
     const validBookingSlotsWithTargetDuration: Array<AvailableBookingSlot> = [];
-    allAvailableSlots.forEach((slot) => {
+    // Need to filter out times before right now - relevant for searches for current date
+    const filterAfterDateTime = DateTime.local().plus(
+      Duration.fromObject({
+        hour: 1, // 1 hour flex-time for no bookings
+      })
+    );
+    for (const slot of allAvailableSlotsForDate) {
+      if (slot.interval.isBefore(filterAfterDateTime)) {
+        continue;
+      }
       // Assume we don't need to round to the nearest 15min/half hour/full hour, etc
       // So we can just split this into intervals of the desired length
       validBookingSlotsWithTargetDuration.push(
@@ -95,7 +103,7 @@ export default class BookingService {
             };
           })
       );
-    });
+    }
     return validBookingSlotsWithTargetDuration;
   }
 
