@@ -6,8 +6,12 @@ import { FormikHelpers } from 'formik/dist/types';
 import TextInput from './TextInput';
 import { AvailableTimeslot } from '../../../../models/api/availableTimesApiModels';
 import SelectInput, { SelectInputOption } from './SelectInput';
-import { isoToFormattedString } from '../../../../utils/dateUtils';
+import {
+  dateTimeToFormattedString,
+  isoToFormattedString,
+} from '../../../../utils/dateUtils';
 import { Gender } from '../../../../models/patient';
+import { DateTime } from 'luxon';
 
 export interface BookingFormValues {
   selectedTimeslotIndex: number;
@@ -123,9 +127,13 @@ function createFormFromFormik(
         multiline
       />
 
-      <Form.Item>
+      <Form.Item
+        style={{
+          paddingTop: '1em',
+        }}
+      >
         <Button type="primary" htmlType="submit" disabled={isSubmitting}>
-          Submit
+          Book Now
         </Button>
       </Form.Item>
     </Form>
@@ -133,6 +141,7 @@ function createFormFromFormik(
 }
 
 interface BookingFormProps {
+  bookingDate: DateTime;
   availableSlots: Array<AvailableTimeslot>;
   onSubmit: (values: BookingFormValues) => Promise<void>;
 }
@@ -140,6 +149,7 @@ interface BookingFormProps {
 export default function BookingForm({
   availableSlots,
   onSubmit,
+  bookingDate,
 }: BookingFormProps): JSX.Element {
   const initialFormValues = createInitialFormValues();
   // Key the select input by index
@@ -165,14 +175,20 @@ export default function BookingForm({
     );
   };
   return (
-    <Formik
-      initialValues={initialFormValues}
-      validationSchema={validationSchema}
-      onSubmit={onSubmitHandler}
-    >
-      {(formik: FormikProps<BookingFormValues>) =>
-        createFormFromFormik(availableTimeslotOptions, formik)
-      }
-    </Formik>
+    <div>
+      <p>
+        Please fill out the form below to book an appointment for{' '}
+        {dateTimeToFormattedString(bookingDate, 'date')}
+      </p>
+      <Formik
+        initialValues={initialFormValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmitHandler}
+      >
+        {(formik: FormikProps<BookingFormValues>) =>
+          createFormFromFormik(availableTimeslotOptions, formik)
+        }
+      </Formik>
+    </div>
   );
 }

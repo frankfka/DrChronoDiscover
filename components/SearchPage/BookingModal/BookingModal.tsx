@@ -6,8 +6,11 @@ import { ProviderLocationWithAvailability } from '../searchPageModels';
 import { MutationStatus, useMutation } from 'react-query';
 import { bookAppointment } from '../searchPageMutations';
 import BookingModalStatus from './Status/BookingModalStatus';
+import { DateTime } from 'luxon';
+import { dateTimeToFormattedString } from '../../../utils/dateUtils';
 
 interface BookingModalProps {
+  bookingDate: DateTime;
   locationWithAvailabilities: ProviderLocationWithAvailability;
   isVisible: boolean;
   closeClicked: () => void;
@@ -25,6 +28,7 @@ function BookingModalContent({
   closeClicked,
   status,
   bookedAppointmentId,
+  bookingDate,
 }: BookingModalContentProps): JSX.Element {
   if (status === 'idle' || status === 'loading') {
     return (
@@ -32,6 +36,7 @@ function BookingModalContent({
         <BookingForm
           availableSlots={locationWithAvailabilities.availableSlots}
           onSubmit={onSubmitBooking}
+          bookingDate={bookingDate}
         />
       </Spin>
     );
@@ -47,10 +52,14 @@ function BookingModalContent({
 }
 
 export default function BookingModal({
+  bookingDate,
   isVisible,
   closeClicked,
   locationWithAvailabilities,
 }: BookingModalProps): JSX.Element {
+  const modalTitle = `${
+    locationWithAvailabilities.name
+  } - ${dateTimeToFormattedString(bookingDate, 'date')}`;
   const mutation = useMutation(bookAppointment);
   const bookingStatus = mutation.status;
   const onSubmitBooking = async (values: BookingFormValues): Promise<void> => {
@@ -62,7 +71,7 @@ export default function BookingModal({
   return (
     <Modal
       className={styles.bookingModal}
-      title={locationWithAvailabilities.name}
+      title={modalTitle}
       centered
       visible={isVisible}
       footer={null}
@@ -80,6 +89,7 @@ export default function BookingModal({
             status: bookingStatus,
             onSubmitBooking,
             bookedAppointmentId: mutation.data?.appointmentId,
+            bookingDate,
           }}
         />
       </div>

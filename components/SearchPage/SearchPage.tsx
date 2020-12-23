@@ -93,6 +93,7 @@ export default function SearchPage({
           locationWithAvailabilities={locationForBookingModal}
           isVisible={!!locationForBookingModal}
           closeClicked={onBookingModalClose}
+          bookingDate={searchDate}
         />
       )}
 
