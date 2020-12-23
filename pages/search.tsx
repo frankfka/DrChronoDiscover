@@ -44,6 +44,10 @@ export default function Search(): JSX.Element {
     isLoading: loadingNearbyQuery,
   } = useQuery(['nearby', nearbyQueryParams], getNearbyProviderLocations, {
     enabled: !!currentLocation,
+    retry: false,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
   });
 
   // Get available slots for each location returned from nearby query
@@ -61,6 +65,10 @@ export default function Search(): JSX.Element {
     getProviderLocationAvailableTimes,
     {
       enabled: !!nearbyQueryData,
+      retry: false,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
     }
   );
 

@@ -1,41 +1,16 @@
 import Geolocation from '../../../models/geolocation';
-import ProviderLocation from '../../../models/providerLocation';
-import { Button, List } from 'antd';
-import { MouseEventHandler } from 'react';
+import { List } from 'antd';
 import { ProviderLocationWithAvailability } from '../searchPageModels';
-
-interface ResultListItemProps {
-  location: ProviderLocation;
-  isSelected: boolean;
-  onClick?: MouseEventHandler;
-  onBookClick?: MouseEventHandler;
-}
-
-function ResultListItem({
-  location,
-  isSelected,
-  onClick,
-  onBookClick,
-}: ResultListItemProps): JSX.Element {
-  // TODO: module styles, hover animation?
-  return (
-    <List.Item
-      key={location.name}
-      onClick={onClick}
-      style={{ cursor: 'pointer' }}
-    >
-      <p>{location.name}</p>
-      <p>{isSelected ? 'Selected' : 'Not Selected'}</p>
-      <Button onClick={onBookClick}>Book Now</Button>
-    </List.Item>
-  );
-}
+import ResultListItem from './ResultListItem';
 
 interface ResultListProps {
   className?: string;
   searchLocation: Geolocation;
   resultLocations: Array<ProviderLocationWithAvailability>;
   selectedLocationId: string | undefined;
+  onResultLocationHover?: (
+    location: ProviderLocationWithAvailability | undefined
+  ) => void;
   onResultLocationClicked?: (
     location: ProviderLocationWithAvailability
   ) => void;
@@ -49,6 +24,7 @@ export default function ResultList({
   selectedLocationId,
   className,
   onResultLocationClicked,
+  onResultLocationHover,
   onResultLocationBookClicked,
 }: ResultListProps): JSX.Element {
   const onItemClick = (location: ProviderLocationWithAvailability): void => {
@@ -56,6 +32,14 @@ export default function ResultList({
   };
   const onBookClick = (location: ProviderLocationWithAvailability): void => {
     onResultLocationBookClicked?.(location);
+  };
+  const onMouseEnterItem = (
+    location: ProviderLocationWithAvailability
+  ): void => {
+    onResultLocationHover?.(location);
+  };
+  const onMouseLeaveItem = (): void => {
+    onResultLocationHover?.(undefined);
   };
 
   return (
@@ -69,6 +53,8 @@ export default function ResultList({
           location={location}
           onClick={() => onItemClick(location)}
           onBookClick={() => onBookClick(location)}
+          onMouseEnter={() => onMouseEnterItem(location)}
+          onMouseLeave={() => onMouseLeaveItem()}
         />
       )}
     />
