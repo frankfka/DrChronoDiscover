@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7ca4a0ae-d647-43dc-9abd-679bf1127014" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/SearchPage/ResultList/ResultList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/ResultList/ResultList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/SearchPage/ResultList/ResultListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/ResultList/ResultListItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/SearchPage/ResultMap/ResultMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/ResultMap/ResultMap.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/database/mongooseDatabaseClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/database/mongooseDatabaseClient.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/Search.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/Search.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/SearchPage/AppointmentSearchBar/AppointmentSearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/AppointmentSearchBar/AppointmentSearchBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/Home.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/Home.module.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +113,7 @@
       <workItem from="1608657555268" duration="3811000" />
       <workItem from="1608703884718" duration="466000" />
       <workItem from="1608704429136" duration="8494000" />
-      <workItem from="1608768176177" duration="1432000" />
+      <workItem from="1608768176177" duration="3815000" />
     </task>
     <servers />
   </component>
