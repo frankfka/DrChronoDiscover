@@ -1,11 +1,12 @@
 import React, { MouseEventHandler } from 'react';
-import { Button, List, Tag } from 'antd';
+import { Button, List, Space, Tag } from 'antd';
 import { ProviderLocationWithAvailability } from '../searchPageModels';
 import { CheckCircleOutlined, StarFilled } from '@ant-design/icons';
 import { isoToFormattedString } from '../../../utils/dateUtils';
 import seedrandom from 'seedrandom';
 
 interface ResultListItemProps {
+  locationIdentifier: string;
   location: ProviderLocationWithAvailability;
   isSelected: boolean;
   onClick?: MouseEventHandler;
@@ -79,6 +80,7 @@ function ResultAvailability({
 }
 
 export default function ResultListItem({
+  locationIdentifier,
   location,
   isSelected,
   onClick,
@@ -100,20 +102,33 @@ export default function ResultListItem({
     <List.Item
       key={location.name}
       onClick={onClick}
-      style={{ cursor: 'pointer' }}
+      style={{
+        cursor: 'pointer',
+        padding: '1em 1em 1.5em 1em',
+        backgroundColor: isSelected ? 'whitesmoke' : 'transparent',
+      }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <h3 style={{ marginBottom: 0 }}>{location.name}</h3>
-      <Rating rating={rating} numRatings={numRatings} />
-      <LocationTags
-        hasBloodTesting={hasBloodTesting}
-        hasTelehealth={hasTelehealth}
-      />
-      <ResultAvailability locationWithAvailability={location} />
-      <Button size={'small'} onClick={onBookClick} disabled={!bookingEnabled}>
-        Book Now
-      </Button>
+      <Space direction="vertical">
+        <div>
+          <h3 style={{ marginBottom: 0 }}>
+            <small>{locationIdentifier}</small> {location.name}
+          </h3>
+          <Rating rating={rating} numRatings={numRatings} />
+        </div>
+
+        <LocationTags
+          hasBloodTesting={hasBloodTesting}
+          hasTelehealth={hasTelehealth}
+        />
+
+        <ResultAvailability locationWithAvailability={location} />
+
+        <Button size={'small'} onClick={onBookClick} disabled={!bookingEnabled}>
+          Book Now
+        </Button>
+      </Space>
     </List.Item>
   );
 }

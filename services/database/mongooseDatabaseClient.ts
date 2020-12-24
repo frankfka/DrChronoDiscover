@@ -39,7 +39,8 @@ export default class MongooseDatabaseClient {
       location,
       maxDistance
     );
-    return mongooseProviderLocations.map((mongooseModel) => {
+    // TODO: Remove slice after dev
+    return mongooseProviderLocations.slice(0, 2).map((mongooseModel) => {
       return createProviderLocation(
         mongooseModel.id!,
         mongooseModel.providerId,

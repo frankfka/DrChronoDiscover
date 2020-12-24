@@ -1,6 +1,7 @@
 import GoogleMapReact from 'google-map-react';
 import Geolocation from '../../../models/geolocation';
 import { ProviderLocationWithAvailability } from '../searchPageModels';
+import { Avatar } from 'antd';
 
 interface ResultMapProps {
   searchLocation: Geolocation;
@@ -11,28 +12,31 @@ interface ResultMapProps {
   ) => void;
 }
 
-type MarkerProps = Geolocation;
+type MarkerProps = Geolocation & {
+  $hover?: boolean;
+};
 
-interface TextMarkerProps extends MarkerProps {
+interface IconMarkerProps extends MarkerProps {
+  isHighlighted: boolean;
+  resultIdentifier: string;
   providerLocation: ProviderLocationWithAvailability;
-  isSelected: boolean;
 }
 
-const TextMarker = ({
-  providerLocation,
-  isSelected,
-}: TextMarkerProps): JSX.Element => {
+const IconMarker = ({
+  isHighlighted,
+  resultIdentifier,
+}: IconMarkerProps): JSX.Element => {
   return (
-    <div
+    <Avatar
+      size={'small'}
       style={{
-        width: 100,
-        height: 25,
-        backgroundColor: isSelected ? 'purple' : 'black',
-        color: 'white',
+        backgroundColor: isHighlighted ? 'purple' : 'black',
+        position: 'absolute',
+        transform: 'translate(-50%, -50%)',
       }}
     >
-      <p>{providerLocation.name}</p>
-    </div>
+      {resultIdentifier}
+    </Avatar>
   );
 };
 
@@ -56,18 +60,19 @@ export default function ResultMap({
       center={currentCenter}
       defaultCenter={defaultCenter}
       defaultZoom={defaultZoom}
-      onChildClick={(key, childProps: TextMarkerProps) => {
+      onChildClick={(key, childProps: IconMarkerProps) => {
         onResultLocationClicked?.(childProps.providerLocation);
       }}
     >
-      {resultLocations.map((loc) => {
+      {resultLocations.map((loc, index) => {
         return (
-          <TextMarker
+          <IconMarker
             lat={loc.location.lat}
             lng={loc.location.lng}
-            providerLocation={loc}
-            isSelected={loc.id === selectedLocationId}
+            isHighlighted={loc.id === selectedLocationId}
             key={loc.id}
+            resultIdentifier={(index + 1).toFixed(0)}
+            providerLocation={loc}
           />
         );
       })}

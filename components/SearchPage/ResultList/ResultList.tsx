@@ -47,8 +47,9 @@ export default function ResultList({
       className={className}
       itemLayout={'vertical'}
       dataSource={resultLocations}
-      renderItem={(location) => (
+      renderItem={(location, index) => (
         <ResultListItem
+          locationIdentifier={(index + 1).toFixed(0)}
           isSelected={location.id === selectedLocationId}
           location={location}
           onClick={() => onItemClick(location)}
