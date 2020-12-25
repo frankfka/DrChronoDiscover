@@ -1,13 +1,22 @@
 .homePage {
   min-height: 100vh;
 }
+
 .searchSplashHeader {
-  display: flex;
-  text-align: center;
-  // Horizontal center
-  justify-content: center;
-  // Vertical center
-  align-items: center;
   width: 100%;
-  min-height: 60vh;
+  min-height: 100vh;
+  // Background
+  background: url('/images/home_background.jpg') rgba(0, 0, 0, 0.5);
+  background-size: cover;
+  background-blend-mode: multiply;
+
+  // Allow children to fill space
+  display: flex;
+  flex-direction: column;
+
+  .searchSplashHeaderContent {
+    text-align: center;
+    margin: auto;
+    padding-bottom: 20vh; // Shift a bit up from center
+  }
 }

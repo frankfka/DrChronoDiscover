@@ -1,23 +1,19 @@
-import { Button, Input, Row, Select, Space } from 'antd';
-import AppointmentDatePicker, {
-  AppointmentDatePickerProps,
-} from '../AppointmentDatePicker/AppointmentDatePicker';
+import { Button, Input, Row, Space } from 'antd';
 import React, { PropsWithChildren, ReactNode } from 'react';
 import { FilterOutlined, SortAscendingOutlined } from '@ant-design/icons';
 import { BiCurrentLocation } from 'react-icons/bi';
+import MockSelect from '../../MockSelect';
+import AppointmentDatePicker, {
+  AppointmentDatePickerProps,
+} from '../../DatePicker';
 
 function LocationTypeSelect(): JSX.Element {
-  const items = ['Doctor', 'Dentist', 'Physiotherapist', 'Massage Therapist'];
+  const items = ['Doctor', 'Dentist'];
   return (
-    <Select style={{ width: '200px', textAlign: 'left' }} value={items[0]}>
-      {items.map((item) => {
-        return (
-          <Select.Option value={item} key={item}>
-            {item}
-          </Select.Option>
-        );
-      })}
-    </Select>
+    <MockSelect
+      style={{ width: '200px', textAlign: 'left' }}
+      mockOptions={items}
+    />
   );
 }
 

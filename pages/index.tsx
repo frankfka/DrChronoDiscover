@@ -1,10 +1,66 @@
 import styles from '../styles/Home.module.scss';
-import { Button, Layout } from 'antd';
+import { Button, Layout, Row, Space } from 'antd';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { DateTime } from 'luxon';
-import AppointmentSearchBar from '../components/SearchPage/AppointmentSearchBar/AppointmentSearchBar';
-const { Footer, Content } = Layout;
+import MockSelect from '../components/MockSelect';
+import AppointmentDatePicker, {
+  AppointmentDatePickerProps,
+} from '../components/DatePicker';
+const { Content } = Layout;
+
+function HomeHeaderNav(): JSX.Element {
+  return (
+    <Row style={{ padding: '2em 3em' }}>
+      <img src="/images/logo.png" alt="Logo" height="32" />
+      <div style={{ flexGrow: 1 }} />
+      <Space>
+        <Button type="link">About</Button>
+        <Button type="link">Contact</Button>
+        <Button type="primary" style={{ marginLeft: '1em' }}>
+          Provider Login
+        </Button>
+      </Space>
+    </Row>
+  );
+}
+
+interface HomeSearchBarProps {
+  searchDateProps: AppointmentDatePickerProps;
+}
+
+function HomeSearchTypeSelect(): JSX.Element {
+  const items = ['Doctor', 'Dentist'];
+  return (
+    <MockSelect mockOptions={items} bordered={false} style={{ width: 100 }} />
+  );
+}
+
+function HomeDatePicker({
+  dateTimeValue,
+  onDateTimeChange,
+}: AppointmentDatePickerProps): JSX.Element {
+  return (
+    <AppointmentDatePicker
+      bordered={false}
+      dateTimeValue={dateTimeValue}
+      onDateTimeChange={onDateTimeChange}
+    />
+  );
+}
+
+function HomeSearchBar({ searchDateProps }: HomeSearchBarProps): JSX.Element {
+  return (
+    <Row>
+      <Space>
+        <div>Find a</div>
+        <HomeSearchTypeSelect />
+        <div>for</div>
+        <HomeDatePicker {...searchDateProps} />
+      </Space>
+    </Row>
+  );
+}
 
 export default function Home() {
   const router = useRouter();
@@ -19,22 +75,27 @@ export default function Home() {
     <Layout className={styles.homePage}>
       <Content>
         <div className={styles.searchSplashHeader}>
-          <div>
-            <h1>Dr.Chrono Discover</h1>
-            <h4>Find an available doctor near you.</h4>
-            <AppointmentSearchBar
+          <HomeHeaderNav />
+          <Space
+            className={styles.searchSplashHeaderContent}
+            direction={'vertical'}
+          >
+            <h1>Find a Doctor Near You.</h1>
+            <h4>
+              Discover the right doctor for your needs. Powered by Dr.Chrono.
+            </h4>
+            <HomeSearchBar
               searchDateProps={{
-                value: searchDate,
-                onChange: setSearchDate,
+                dateTimeValue: searchDate,
+                onDateTimeChange: setSearchDate,
               }}
             />
             <Button type="primary" onClick={onSearchClicked}>
-              Search Now
+              Search Near You
             </Button>
-          </div>
+          </Space>
         </div>
       </Content>
-      <Footer>Footer</Footer>
     </Layout>
   );
 }

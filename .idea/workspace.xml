@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ca4a0ae-d647-43dc-9abd-679bf1127014" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/components/MockSelect.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/home_background.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/SearchPage/AppointmentDatePicker/AppointmentDatePicker.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DatePicker.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/SearchPage/AppointmentSearchBar/AppointmentSearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/AppointmentSearchBar/AppointmentSearchBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/SearchPage/BookingModal/BookingForm/SelectInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/BookingModal/BookingForm/SelectInput.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/styles/Home.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/Home.module.scss" afterDir="false" />
     </list>
@@ -20,8 +25,8 @@
       <list>
         <option value="JavaScript File" />
         <option value="SCSS File" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -63,11 +68,11 @@
       <recent name="$PROJECT_DIR$/services/database/models" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/images" />
+      <recent name="$PROJECT_DIR$/components" />
       <recent name="$PROJECT_DIR$/components/SearchPage/BookingModal" />
       <recent name="$PROJECT_DIR$/components/SearchPage" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/components" />
-      <recent name="$PROJECT_DIR$/components/BookingModal/Form" />
     </key>
   </component>
   <component name="RunManager">
@@ -113,7 +118,9 @@
       <workItem from="1608657555268" duration="3811000" />
       <workItem from="1608703884718" duration="466000" />
       <workItem from="1608704429136" duration="8494000" />
-      <workItem from="1608768176177" duration="3815000" />
+      <workItem from="1608768176177" duration="3957000" />
+      <workItem from="1608791323097" duration="10000" />
+      <workItem from="1608825372670" duration="6980000" />
     </task>
     <servers />
   </component>

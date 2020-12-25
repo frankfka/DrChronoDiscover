@@ -12,7 +12,7 @@ export interface SelectInputOption {
 
 type SelectInputProps = FieldHookConfig<string> & {
   inputLabel: string;
-  values: Array<SelectInputOption>; // Option value to displayed text
+  values: Array<SelectInputOption>; // Option dateTimeValue to displayed text
 };
 
 export default function SelectInput({
