@@ -10,6 +10,7 @@ import Geolocation from '../../models/geolocation';
 import { NearbyApiResponse } from '../../models/api/nearbyApiModels';
 import { AvailableTimesApiResponse } from '../../models/api/availableTimesApiModels';
 import { DateTime } from 'luxon';
+import NavBar from '../NavBar';
 const { Header, Footer, Content } = Layout;
 
 interface SearchPageProps {
@@ -99,9 +100,7 @@ export default function SearchPage({
       )}
 
       {/*Main Content*/}
-      <Header style={{ backgroundColor: 'white' }}>
-        <h1>Search</h1>
-      </Header>
+      <NavBar />
       <div style={{ padding: 5, backgroundColor: 'lightgray' }}>
         <AppointmentSearchBar
           searchDateProps={{

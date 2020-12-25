@@ -18,5 +18,37 @@
     text-align: center;
     margin: auto;
     padding-bottom: 20vh; // Shift a bit up from center
+    color: darken(#fff, 20%);
+
+    h1 {
+      font-size: 4em;
+      font-weight: bold;
+      color: #fff;
+      margin: 0;
+    }
+
+    h4 {
+      font-size: 1.4em;
+      color: darken(#fff, 20%);
+    }
+
+    .search-splash-cta {
+      margin-top: 1em;
+      font-size: 1.4em;
+      height: auto;
+    }
+
+    .search-splash-search-bar {
+      font-size: 1.2em !important;
+      justify-content: center;
+      .ant-select-selection-item, .ant-picker-input input {
+        color: white;
+        font-weight: bold;
+        font-size: 1.2em !important;
+      }
+      .ant-select-arrow, .ant-picker-suffix {
+        color: white;
+      }
+    }
   }
 }
