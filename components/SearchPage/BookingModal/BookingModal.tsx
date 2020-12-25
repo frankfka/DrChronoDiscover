@@ -1,6 +1,5 @@
 import React from 'react';
 import { Modal, Spin } from 'antd';
-import styles from './BookingModal.module.scss';
 import BookingForm, { BookingFormValues } from './BookingForm/BookingForm';
 import { ProviderLocationWithAvailability } from '../searchPageModels';
 import { MutationStatus, useMutation } from 'react-query';
@@ -70,7 +69,6 @@ export default function BookingModal({
   };
   return (
     <Modal
-      className={styles.bookingModal}
       title={modalTitle}
       centered
       visible={isVisible}
@@ -78,21 +76,19 @@ export default function BookingModal({
       destroyOnClose={true}
       // On close function
       onCancel={closeClicked}
-      bodyStyle={{ padding: 0 }}
+      bodyStyle={{ maxHeight: '80vh', overflowY: 'scroll' }}
     >
-      <div className={styles.bookingModalContent}>
-        <BookingModalContent
-          {...{
-            isVisible,
-            closeClicked,
-            locationWithAvailabilities,
-            status: bookingStatus,
-            onSubmitBooking,
-            bookedAppointmentId: mutation.data?.appointmentId,
-            bookingDate,
-          }}
-        />
-      </div>
+      <BookingModalContent
+        {...{
+          isVisible,
+          closeClicked,
+          locationWithAvailabilities,
+          status: bookingStatus,
+          onSubmitBooking,
+          bookedAppointmentId: mutation.data?.appointmentId,
+          bookingDate,
+        }}
+      />
     </Modal>
   );
 }

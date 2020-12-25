@@ -1,5 +1,5 @@
 import '../styles/globals.scss';
-import 'antd/dist/antd.css';
+import '../styles/antd.custom.less';
 
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';

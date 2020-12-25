@@ -1,4 +1,4 @@
-import styles from '../styles/Home.module.scss';
+import '../styles/Home.module.scss';
 import { Button, Layout, Row, Space } from 'antd';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -72,14 +72,11 @@ export default function Home() {
   };
 
   return (
-    <Layout className={styles.homePage}>
+    <Layout className="homePage">
       <Content>
-        <div className={styles.searchSplashHeader}>
+        <div className="searchSplashHeader">
           <HomeHeaderNav />
-          <Space
-            className={styles.searchSplashHeaderContent}
-            direction={'vertical'}
-          >
+          <Space className="searchSplashHeaderContent" direction={'vertical'}>
             <h1>Find a Doctor Near You.</h1>
             <h4>
               Discover the right doctor for your needs. Powered by Dr.Chrono.

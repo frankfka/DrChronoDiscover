@@ -1,5 +1,6 @@
+import '../../styles/Search.module.scss';
+
 import { Col, Layout, Row } from 'antd';
-import styles from '../../styles/Search.module.scss';
 import { ProviderLocationWithAvailability } from './searchPageModels';
 import BookingModal from './BookingModal/BookingModal';
 import AppointmentSearchBar from './AppointmentSearchBar/AppointmentSearchBar';
@@ -50,7 +51,7 @@ export default function SearchPage({
 }: SearchPageProps): JSX.Element {
   if (isLoading) {
     return (
-      <Layout className={styles.searchPage}>
+      <Layout className="searchPage">
         <Content>Loading</Content>
       </Layout>
     );
@@ -63,7 +64,7 @@ export default function SearchPage({
     !availableTimesQueryData
   ) {
     return (
-      <Layout className={styles.searchPage}>
+      <Layout className="searchPage">
         <Content>Error</Content>
       </Layout>
     );
@@ -86,7 +87,7 @@ export default function SearchPage({
   );
 
   return (
-    <Layout className={styles.searchPage}>
+    <Layout className="searchPage">
       {/*Modal*/}
       {locationForBookingModal && (
         <BookingModal
@@ -104,14 +105,14 @@ export default function SearchPage({
       <div style={{ padding: 5, backgroundColor: 'lightgray' }}>
         <AppointmentSearchBar
           searchDateProps={{
-            value: searchDate,
-            onChange: setSearchDate,
+            dateTimeValue: searchDate,
+            onDateTimeChange: setSearchDate,
           }}
         />
       </div>
       <Content>
-        <Row className={styles.searchPageContent}>
-          <Col span={18} className={styles.searchPageContent}>
+        <Row className="searchPageContent">
+          <Col span={18} className="searchPageContent">
             <ResultMap
               searchLocation={currentLocation}
               resultLocations={nearbyLocationsWithAvailabilities}
@@ -119,9 +120,9 @@ export default function SearchPage({
               onResultLocationClicked={onResultLocationClicked}
             />
           </Col>
-          <Col span={6} className={styles.searchPageContent}>
+          <Col span={6} className="searchPageContent">
             <ResultList
-              className={styles.searchResultsList}
+              className="searchResultsList"
               searchLocation={currentLocation}
               resultLocations={nearbyLocationsWithAvailabilities}
               selectedLocationId={selectedLocationId}
