@@ -10,7 +10,7 @@ interface NavBarProps {
 export default function NavBar({ inverted }: NavBarProps): JSX.Element {
   return (
     <Row
-      style={{ padding: '1em 3em' }}
+      style={{ padding: '1em 3em', alignItems: 'center' }}
       className={inverted ? 'navbar-inverted' : 'navbar'}
     >
       <img
@@ -20,9 +20,13 @@ export default function NavBar({ inverted }: NavBarProps): JSX.Element {
       />
       <div style={{ flexGrow: 1 }} />
       <Space>
-        <Button type="link">About</Button>
-        <Button type="link">Contact</Button>
-        <Button type="primary" style={{ marginLeft: '1em' }}>
+        <Button type="link" size={'large'}>
+          About
+        </Button>
+        <Button type="link" size={'large'}>
+          Contact
+        </Button>
+        <Button type="primary" style={{ marginLeft: '1em' }} size={'large'}>
           Provider Login
         </Button>
       </Space>

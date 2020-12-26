@@ -1,12 +1,13 @@
 import GoogleMapReact from 'google-map-react';
 import Geolocation from '../../../models/geolocation';
 import { ProviderLocationWithAvailability } from '../searchPageModels';
-import { Avatar } from 'antd';
+import { Avatar, Spin } from 'antd';
 
 interface ResultMapProps {
-  searchLocation: Geolocation;
+  searchLocation?: Geolocation;
   resultLocations: Array<ProviderLocationWithAvailability>;
   selectedLocationId: string | undefined;
+  loading?: boolean;
   onResultLocationClicked?: (
     location: ProviderLocationWithAvailability
   ) => void;
@@ -30,7 +31,7 @@ const IconMarker = ({
     <Avatar
       size={'small'}
       style={{
-        backgroundColor: isHighlighted ? 'purple' : 'black',
+        backgroundColor: isHighlighted ? '#ff3a4c' : '#4f7395',
         position: 'absolute',
         transform: 'translate(-50%, -50%)',
       }}
@@ -42,14 +43,29 @@ const IconMarker = ({
 
 // https://github.com/google-map-react/google-map-react/blob/master/API.md
 export default function ResultMap({
+  loading,
   searchLocation,
   resultLocations,
   selectedLocationId,
   onResultLocationClicked,
 }: ResultMapProps): JSX.Element {
+  if (loading || !searchLocation) {
+    return (
+      <div
+        style={{
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Spin />
+      </div>
+    );
+  }
+  const defaultZoom = 11;
   const apiKey: string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!;
   const defaultCenter: Geolocation = searchLocation;
-  const defaultZoom = 11;
   const currentCenter: Geolocation | undefined = resultLocations.find(
     (loc) => loc.id === selectedLocationId
   )?.location;

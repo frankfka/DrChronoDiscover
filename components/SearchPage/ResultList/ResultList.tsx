@@ -1,13 +1,25 @@
-import Geolocation from '../../../models/geolocation';
-import { List } from 'antd';
+import { List, Skeleton } from 'antd';
 import { ProviderLocationWithAvailability } from '../searchPageModels';
 import ResultListItem from './ResultListItem';
 
+function LoadingResultList(): JSX.Element {
+  return (
+    <List
+      style={{
+        padding: '2em',
+      }}
+      itemLayout={'vertical'}
+      dataSource={new Array(5).fill('')}
+      renderItem={() => <Skeleton active />}
+    />
+  );
+}
+
 interface ResultListProps {
   className?: string;
-  searchLocation: Geolocation;
   resultLocations: Array<ProviderLocationWithAvailability>;
   selectedLocationId: string | undefined;
+  loading?: boolean;
   onResultLocationHover?: (
     location: ProviderLocationWithAvailability | undefined
   ) => void;
@@ -20,6 +32,7 @@ interface ResultListProps {
 }
 
 export default function ResultList({
+  loading,
   resultLocations,
   selectedLocationId,
   className,
@@ -27,6 +40,10 @@ export default function ResultList({
   onResultLocationHover,
   onResultLocationBookClicked,
 }: ResultListProps): JSX.Element {
+  if (loading) {
+    return <LoadingResultList />;
+  }
+
   const onItemClick = (location: ProviderLocationWithAvailability): void => {
     onResultLocationClicked?.(location);
   };

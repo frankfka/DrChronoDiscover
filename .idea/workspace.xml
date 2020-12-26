@@ -5,16 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ca4a0ae-d647-43dc-9abd-679bf1127014" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/components/NavBar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/Navbar.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/logo_dark.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/NavBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/NavBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/SearchPage/AppointmentSearchBar/AppointmentSearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/AppointmentSearchBar/AppointmentSearchBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/SearchPage/ResultList/LoadingResultList.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/SearchPage/ResultList/ResultList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/ResultList/ResultList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/SearchPage/ResultList/ResultListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/ResultList/ResultListItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/SearchPage/ResultMap/ResultMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/ResultMap/ResultMap.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/SearchPage/SearchPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SearchPage/SearchPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/_app.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/styles/Home.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/Home.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/antd.custom.less" beforeDir="false" afterPath="$PROJECT_DIR$/styles/antd.custom.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/globals.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/Search.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/Search.module.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,6 +124,7 @@
       <workItem from="1608768176177" duration="3957000" />
       <workItem from="1608791323097" duration="10000" />
       <workItem from="1608825372670" duration="6980000" />
+      <workItem from="1608947887917" duration="3704000" />
     </task>
     <servers />
   </component>

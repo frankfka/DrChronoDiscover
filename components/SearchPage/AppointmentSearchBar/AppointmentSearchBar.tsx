@@ -1,5 +1,5 @@
 import { Button, Input, Row, Space } from 'antd';
-import React, { PropsWithChildren, ReactNode } from 'react';
+import React, { HTMLAttributes, PropsWithChildren, ReactNode } from 'react';
 import { FilterOutlined, SortAscendingOutlined } from '@ant-design/icons';
 import { BiCurrentLocation } from 'react-icons/bi';
 import MockSelect from '../../MockSelect';
@@ -18,15 +18,23 @@ function LocationTypeSelect(): JSX.Element {
 }
 
 interface SearchItemWrapperProps {
-  title: string;
+  title?: string;
 }
 
 function SearchItemWrapper({
   title,
   children,
-}: PropsWithChildren<ReactNode> & SearchItemWrapperProps): JSX.Element {
+  style,
+}: PropsWithChildren<ReactNode> &
+  SearchItemWrapperProps &
+  HTMLAttributes<ReactNode>): JSX.Element {
   return (
-    <div>
+    <div
+      style={{
+        margin: '1em',
+        ...style,
+      }}
+    >
       <div style={{ textAlign: 'left' }}>{title}</div>
       {children}
     </div>
@@ -57,20 +65,29 @@ export default function AppointmentSearchBar({
   searchDateProps,
 }: AppointmentSearchBarProps): JSX.Element {
   return (
-    <Row>
-      <Space align={'end'}>
-        <SearchItemWrapper title={'Location'}>
-          <LocationSearchInput />
-        </SearchItemWrapper>
-        <SearchItemWrapper title={'Date'}>
-          <AppointmentDatePicker {...searchDateProps} />
-        </SearchItemWrapper>
-        <SearchItemWrapper title={'Type'}>
-          <LocationTypeSelect />
-        </SearchItemWrapper>
+    <Row
+      style={{
+        alignItems: 'end',
+      }}
+    >
+      <SearchItemWrapper title={'Location'} style={{ flexGrow: 1 }}>
+        <LocationSearchInput />
+      </SearchItemWrapper>
+      <SearchItemWrapper title={'Date'}>
+        <AppointmentDatePicker {...searchDateProps} />
+      </SearchItemWrapper>
+      <SearchItemWrapper title={'Type'}>
+        <LocationTypeSelect />
+      </SearchItemWrapper>
+      <SearchItemWrapper>
         <Button icon={<FilterOutlined />}>Filter</Button>
-        <Button icon={<SortAscendingOutlined />}>Sort</Button>
-      </Space>
+        <Button
+          icon={<SortAscendingOutlined />}
+          style={{ marginLeft: '0.4em' }}
+        >
+          Sort
+        </Button>
+      </SearchItemWrapper>
     </Row>
   );
 }

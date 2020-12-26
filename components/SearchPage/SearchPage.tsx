@@ -1,6 +1,6 @@
 import '../../styles/Search.module.scss';
 
-import { Col, Layout, Row } from 'antd';
+import { Col, Divider, Layout, Row } from 'antd';
 import { ProviderLocationWithAvailability } from './searchPageModels';
 import BookingModal from './BookingModal/BookingModal';
 import AppointmentSearchBar from './AppointmentSearchBar/AppointmentSearchBar';
@@ -11,7 +11,7 @@ import { NearbyApiResponse } from '../../models/api/nearbyApiModels';
 import { AvailableTimesApiResponse } from '../../models/api/availableTimesApiModels';
 import { DateTime } from 'luxon';
 import NavBar from '../NavBar';
-const { Header, Footer, Content } = Layout;
+const { Content } = Layout;
 
 interface SearchPageProps {
   isLoading: boolean;
@@ -50,45 +50,31 @@ export default function SearchPage({
   onResultLocationClicked,
   onResultLocationBookClicked,
 }: SearchPageProps): JSX.Element {
-  if (isLoading) {
+  if (isError) {
     return (
-      <Layout className="searchPage">
-        <Content>Loading</Content>
-      </Layout>
-    );
-  }
-
-  if (
-    isError ||
-    !currentLocation ||
-    !nearbyQueryData ||
-    !availableTimesQueryData
-  ) {
-    return (
-      <Layout className="searchPage">
+      <Layout className="search-page">
         <Content>Error</Content>
       </Layout>
     );
   }
 
-  const nearbyLocationsWithAvailabilities: Array<ProviderLocationWithAvailability> = nearbyQueryData.locations.map(
-    (location) => {
+  const nearbyLocationsWithAvailabilities: Array<ProviderLocationWithAvailability> =
+    nearbyQueryData?.locations.map((location) => {
       const availableSlots =
-        availableTimesQueryData.availableBookingTimesByLocationId[
+        availableTimesQueryData?.availableBookingTimesByLocationId[
           location.id
         ] ?? [];
       return {
         availableSlots,
         ...location,
       };
-    }
-  );
+    }) ?? [];
   const locationForBookingModal = nearbyLocationsWithAvailabilities.find(
     (loc) => loc.id === locationIdForBookingModal
   );
 
   return (
-    <Layout className="searchPage">
+    <Layout className="search-page">
       {/*Modal*/}
       {locationForBookingModal && (
         <BookingModal
@@ -101,28 +87,32 @@ export default function SearchPage({
 
       {/*Main Content*/}
       <NavBar />
-      <div style={{ padding: 5, backgroundColor: 'lightgray' }}>
-        <AppointmentSearchBar
-          searchDateProps={{
-            dateTimeValue: searchDate,
-            onDateTimeChange: setSearchDate,
-          }}
-        />
-      </div>
+      <Divider style={{ margin: 0 }} />
+      <AppointmentSearchBar
+        searchDateProps={{
+          dateTimeValue: searchDate,
+          onDateTimeChange: setSearchDate,
+        }}
+      />
+      <Divider style={{ margin: 0 }} />
       <Content>
-        <Row className="searchPageContent">
-          <Col span={18} className="searchPageContent">
+        <Row style={{ height: '100%' }}>
+          <Col
+            span={18}
+            style={{ borderRight: '0.5px solid #d9d9d9', height: '100%' }}
+          >
             <ResultMap
+              loading={isLoading}
               searchLocation={currentLocation}
               resultLocations={nearbyLocationsWithAvailabilities}
               selectedLocationId={selectedLocationId}
               onResultLocationClicked={onResultLocationClicked}
             />
           </Col>
-          <Col span={6} className="searchPageContent">
+          <Col span={6} style={{ height: '100%' }}>
             <ResultList
-              className="searchResultsList"
-              searchLocation={currentLocation}
+              loading={isLoading}
+              className="search-results-list"
               resultLocations={nearbyLocationsWithAvailabilities}
               selectedLocationId={selectedLocationId}
               onResultLocationClicked={onResultLocationClicked}
@@ -131,7 +121,6 @@ export default function SearchPage({
           </Col>
         </Row>
       </Content>
-      <Footer>Footer</Footer>
     </Layout>
   );
 }

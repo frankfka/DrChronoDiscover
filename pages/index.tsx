@@ -57,11 +57,14 @@ export default function Home() {
   };
 
   return (
-    <Layout className="homePage">
+    <Layout className="home-page">
       <Content>
-        <div className="searchSplashHeader">
+        <div className="search-splash-header">
           <NavBar inverted />
-          <Space className="searchSplashHeaderContent" direction={'vertical'}>
+          <Space
+            className="search-splash-header-content"
+            direction={'vertical'}
+          >
             <h1>Find a Doctor Near You.</h1>
             <h4>
               Discover the right doctor wherever you are. Powered by Dr.Chrono.

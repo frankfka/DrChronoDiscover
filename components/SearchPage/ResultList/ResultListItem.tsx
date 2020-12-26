@@ -105,14 +105,16 @@ export default function ResultListItem({
       style={{
         cursor: 'pointer',
         padding: '1em 1em 1.5em 1em',
-        backgroundColor: isSelected ? 'whitesmoke' : 'transparent',
+        backgroundColor: isSelected
+          ? 'rgba(79, 115, 149, 0.05)'
+          : 'transparent',
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
       <Space direction="vertical">
         <div>
-          <h3 style={{ marginBottom: 0 }}>
+          <h3 style={{ marginBottom: 0, fontWeight: 'bold' }}>
             <small>{locationIdentifier}</small> {location.name}
           </h3>
           <Rating rating={rating} numRatings={numRatings} />
@@ -125,7 +127,7 @@ export default function ResultListItem({
 
         <ResultAvailability locationWithAvailability={location} />
 
-        <Button size={'small'} onClick={onBookClick} disabled={!bookingEnabled}>
+        <Button onClick={onBookClick} disabled={!bookingEnabled}>
           Book Now
         </Button>
       </Space>
