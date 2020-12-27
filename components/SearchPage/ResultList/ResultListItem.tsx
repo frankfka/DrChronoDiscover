@@ -4,9 +4,27 @@ import { ProviderLocationWithAvailability } from '../searchPageModels';
 import { CheckCircleOutlined, StarFilled } from '@ant-design/icons';
 import { isoToFormattedString } from '../../../utils/dateUtils';
 import seedrandom from 'seedrandom';
+import getDistance from 'geolib/es/getDistance';
+import Geolocation from '../../../models/geolocation';
+
+function getDistanceInKm(from: Geolocation, to: Geolocation): number {
+  return (
+    getDistance(
+      {
+        latitude: from.lat,
+        longitude: from.lng,
+      },
+      {
+        latitude: to.lat,
+        longitude: to.lng,
+      }
+    ) / 1000
+  );
+}
 
 interface ResultListItemProps {
   locationIdentifier: string;
+  searchLocation: Geolocation;
   location: ProviderLocationWithAvailability;
   isSelected: boolean;
   onClick?: MouseEventHandler;
@@ -48,6 +66,9 @@ function LocationTags({
   hasTelehealth,
   hasBloodTesting,
 }: LocationTagsProps): JSX.Element {
+  if (!hasTelehealth && !hasBloodTesting) {
+    return <></>;
+  }
   return (
     <div>
       {hasTelehealth && <LocationTag>Telehealth</LocationTag>}
@@ -80,6 +101,7 @@ function ResultAvailability({
 }
 
 export default function ResultListItem({
+  searchLocation,
   locationIdentifier,
   location,
   isSelected,
@@ -90,6 +112,11 @@ export default function ResultListItem({
 }: ResultListItemProps): JSX.Element {
   // Use Random #'s for mock data
   const randGen = seedrandom(location.id);
+  // Distance
+  const distanceInKmStr = getDistanceInKm(
+    searchLocation,
+    location.location
+  ).toFixed(1);
   // Rating
   const rating = Math.floor(randGen.quick() * 3) + 2;
   const numRatings = Math.floor(randGen.quick() * 100);
@@ -115,7 +142,8 @@ export default function ResultListItem({
       <Space direction="vertical">
         <div>
           <h3 style={{ marginBottom: 0, fontWeight: 'bold' }}>
-            <small>{locationIdentifier}</small> {location.name}
+            <small>{locationIdentifier}</small> {location.name}{' '}
+            <small>({distanceInKmStr} km)</small>
           </h3>
           <Rating rating={rating} numRatings={numRatings} />
         </div>

@@ -112,6 +112,7 @@ export default function SearchPage({
           <Col span={6} style={{ height: '100%' }}>
             <ResultList
               loading={isLoading}
+              searchLocation={currentLocation}
               className="search-results-list"
               resultLocations={nearbyLocationsWithAvailabilities}
               selectedLocationId={selectedLocationId}

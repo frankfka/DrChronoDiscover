@@ -2,6 +2,7 @@ import GoogleMapReact from 'google-map-react';
 import Geolocation from '../../../models/geolocation';
 import { ProviderLocationWithAvailability } from '../searchPageModels';
 import { Avatar, Spin } from 'antd';
+import { BiCurrentLocation } from 'react-icons/bi';
 
 interface ResultMapProps {
   searchLocation?: Geolocation;
@@ -41,6 +42,22 @@ const IconMarker = ({
   );
 };
 
+type CurrentLocationMarkerProps = MarkerProps;
+
+// eslint-disable-next-line no-empty-pattern
+const CurrentLocationMarker = ({}: CurrentLocationMarkerProps): JSX.Element => {
+  return (
+    <BiCurrentLocation
+      size={'24px'}
+      style={{
+        color: '#ff3a4c',
+        position: 'absolute',
+        transform: 'translate(-50%, -50%)',
+      }}
+    />
+  );
+};
+
 // https://github.com/google-map-react/google-map-react/blob/master/API.md
 export default function ResultMap({
   loading,
@@ -77,9 +94,17 @@ export default function ResultMap({
       defaultCenter={defaultCenter}
       defaultZoom={defaultZoom}
       onChildClick={(key, childProps: IconMarkerProps) => {
-        onResultLocationClicked?.(childProps.providerLocation);
+        if (childProps.providerLocation) {
+          onResultLocationClicked?.(childProps.providerLocation);
+        }
       }}
     >
+      {/*Current Location*/}
+      <CurrentLocationMarker
+        lat={searchLocation.lat}
+        lng={searchLocation.lng}
+      />
+      {/*Results*/}
       {resultLocations.map((loc, index) => {
         return (
           <IconMarker

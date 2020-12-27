@@ -26,8 +26,11 @@ export default function NavBar({ inverted }: NavBarProps): JSX.Element {
         <Button type="link" size={'large'}>
           Contact
         </Button>
+        <Button type="link" size={'large'}>
+          Providers
+        </Button>
         <Button type="primary" style={{ marginLeft: '1em' }} size={'large'}>
-          Provider Login
+          Login
         </Button>
       </Space>
     </Row>

@@ -1,6 +1,7 @@
 import { List, Skeleton } from 'antd';
 import { ProviderLocationWithAvailability } from '../searchPageModels';
 import ResultListItem from './ResultListItem';
+import Geolocation from '../../../models/geolocation';
 
 function LoadingResultList(): JSX.Element {
   return (
@@ -17,6 +18,7 @@ function LoadingResultList(): JSX.Element {
 
 interface ResultListProps {
   className?: string;
+  searchLocation?: Geolocation;
   resultLocations: Array<ProviderLocationWithAvailability>;
   selectedLocationId: string | undefined;
   loading?: boolean;
@@ -33,6 +35,7 @@ interface ResultListProps {
 
 export default function ResultList({
   loading,
+  searchLocation,
   resultLocations,
   selectedLocationId,
   className,
@@ -40,7 +43,7 @@ export default function ResultList({
   onResultLocationHover,
   onResultLocationBookClicked,
 }: ResultListProps): JSX.Element {
-  if (loading) {
+  if (loading || !searchLocation) {
     return <LoadingResultList />;
   }
 
@@ -66,6 +69,7 @@ export default function ResultList({
       dataSource={resultLocations}
       renderItem={(location, index) => (
         <ResultListItem
+          searchLocation={searchLocation}
           locationIdentifier={(index + 1).toFixed(0)}
           isSelected={location.id === selectedLocationId}
           location={location}
