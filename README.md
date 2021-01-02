@@ -1,8 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Discover, by Dr.Chrono, is a healthcare booking platform designed for the digital consumer. It enables individuals to book a healthcare appointment at a time and place that works for them. This concept was created for the [Dr.Chrono Virtual Healthcare Hackathon (2021)](https://devpost.com/software/discover-book-a-healthcare-appointment-anywhere-anytime). A demo and pitch can be found [here](https://www.youtube.com/watch?v=JVF4SFZnhps).
 
-## Getting Started
-
-First, run the development server:
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It can be run by cloning the repository and running
 
 ```bash
 npm run dev
@@ -10,21 +8,4 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The website will then be live on [http://localhost:3000](http://localhost:3000). However, the project uses private `.env` values for MongoDB and Google Maps API access, which are *not* included within the repository. To have a full end-to-end workflow, please [reach out](mailto:jiafrank98@gmail.com) and I'd be happy to help.
