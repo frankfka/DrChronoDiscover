@@ -135,6 +135,7 @@ export default class ChronoClient {
       url: this.endpoint + path,
       params: params,
       data: data,
+      timeout: 30000,
       headers: {
         authorization: `Bearer ${bearerToken}`,
       },
