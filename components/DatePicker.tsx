@@ -27,7 +27,6 @@ export default function AppointmentDatePicker({
     <DatePicker
       value={momentValue}
       onChange={momentOnChange}
-      showNow
       allowClear={false}
       disabledDate={isDateDisabled}
       format={'ddd, MMM Do'}
